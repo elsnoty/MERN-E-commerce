@@ -1,0 +1,25 @@
+.LinkHover::after{
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: black;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+.LinkHover:hover::after{
+    width: 100%;
+    left: 0;
+}
+
+.searchList::-webkit-scrollbar {
+    width: 7px;
+  }
+
+.searchList::-webkit-scrollbar-track {
+    box-shadow: inset 5px 5px grey; 
+    border-radius: 10px;
+  }
