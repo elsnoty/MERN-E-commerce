@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import ProductModel from '../models/ProductsSchema';
 import { Request, Response } from 'express';
 
@@ -30,6 +31,7 @@ const GetAllProducts = async (req: Request, res: Response) => {
     }
   };
 
+// Get a Single Product
 
 // Post a product
 const PostProduct = async (req: Request, res: Response) => {
@@ -75,23 +77,23 @@ const UpdateProduct = async (req: Request, res: Response) => {
     }
 };
 
-
-//GET one Product
-const SingleProduct = async(req: Request, res: Response)=> {
+// Single Product
+const SingleProduct = async (req: Request, res: Response) => {
     try {
-        const {id} = req.params
-        const product = await ProductModel.findById(id)
-        console.log(product);
-        
-        res.status(200).json(product)
-        }
-        catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
-        } else {
-            res.status(400).json({ error: 'An unknown error occurred' });
-        }
+      const { id } = req.params;
+      const product = await ProductModel.findById(id);
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+      res.status(200).json(product);
+      
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: 'An unknown error occurred' });
+      }
     }
-}
-
+  };
+  
 export { GetAllProducts, PostProduct, UpdateProduct, SingleProduct };

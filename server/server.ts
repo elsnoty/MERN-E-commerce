@@ -33,6 +33,6 @@ mongoose.connect(dbConnectionString)
   });
 
 // routes
-app.use('/api/products', ProductRotues)
+app.use('/api', ProductRotues)
 app.use('/api', UserRoutes)
 app.use('/api/reviews', ReviewsRoutes)

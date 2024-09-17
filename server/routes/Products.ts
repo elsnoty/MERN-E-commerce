@@ -4,10 +4,10 @@ import {GetAllProducts, PostProduct, UpdateProduct, SingleProduct} from '../Cont
 const router = express.Router()
 
 // get all the Products
-router.get('/', GetAllProducts)
+router.get('/products', GetAllProducts)
 
 // post a product 
-router.post('/',PostProduct )
+router.post('/products',PostProduct )
 
 
 //Update a Product
