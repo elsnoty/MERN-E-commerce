@@ -1,64 +1,74 @@
-"use client"
-import { useQuery } from '@tanstack/react-query';
+"use client";
 import React, { useState, ChangeEvent } from 'react';
-import { FetchAll } from '../Util/FetchAllProduct'; // Assume this function fetches all products
+import useFetchProduct from '../../Util/FetchAllProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import style from "./style.module.css"
+import style from "./style.module.css";
+import { useRouter } from 'next/navigation';
 
 interface Search {
-    id: string;
+  _id: string;
   name: string;
 }
 
 const SearchComponent = () => {
   const [name, setName] = useState('');
+  const router = useRouter(); // Get the router instance
 
-  // Fetch all products using react-query
-  const { data: products, isLoading, isError } = useQuery<Search[]>({
-    queryKey: ['searchRes'],
-    queryFn: FetchAll,
-  });
-
-  // Filter products 
-  const filteredProducts = products?.filter((product) =>
-    name && product.name.toLowerCase().includes(name.toLowerCase())
+  const { ProductData, isPending } = useFetchProduct<Search[]>(
+    "http://localhost:3002/api/products",
+    'searchRes'
   );
 
-    if (!filteredProducts) {
-        return null
-    }
-  if (isLoading) {
+  const filteredProducts = name
+    ? ProductData?.filter((product) =>
+        product.name.toLowerCase().includes(name.toLowerCase())
+      )
+    : [];
+
+  if (isPending) {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return <div>Error fetching data</div>;
+  const handleProductClick = (productId: string) => {
+    setName('');
+    router.push(`/categories/${productId}`); 
+  };
+  
+  if (!filteredProducts) {
+    return <div>Sorry, SomeThing Went Wrong</div>
   }
 
   return (
     <div className="relative lg:min-w-[500px] ">
-      <div className="bg-gray-300 p-2 rounded-lg">
-          <FontAwesomeIcon icon={faMagnifyingGlass} /> 
+      <div className="bg-gray-300 p-2 rounded-lg flex items-center">
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
         <input
           type="text"
           placeholder="Search for a product..."
-          onChange={(e:ChangeEvent<HTMLInputElement>)=>setName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           value={name}
-          className=' bg-transparent outline-none ml-1'
+          className="bg-transparent outline-none ml-1 w-full"
         />
       </div>
 
-      <div className={`absolute max-h-[250px] overflow-hidden overflow-y-scroll rounded-md top-12 bg-gray-200 ${style.searchList}`}>
-        {
-          filteredProducts.map((product) => (
-            <div key={product.id} className="p-2 hover:cursor-pointer">
-                <p className='p-1 rounded-md hover:bg-gray-400'>
-                    {product.name}
-                </p>
+      {filteredProducts.length > 0 && (
+        <div className={`absolute max-h-[250px] overflow-hidden overflow-y-scroll rounded-md top-12 bg-gray-200 z-50 ${style.searchList}`}>
+          {filteredProducts.map((product) => (
+            <div key={product._id} className="p-2 hover:cursor-pointer" onClick={() => handleProductClick(product._id)}>
+              <p className="p-1 rounded-md hover:bg-gray-400">
+                {product.name}
+              </p>
             </div>
           ))}
-      </div>
+        </div>
+      )}
+
+      {filteredProducts.length === 0 && name && (
+        <div className="absolute top-12 bg-gray-200 z-50 p-2">
+          <p>No products found</p>
+        </div>
+      )}
     </div>
   );
 };

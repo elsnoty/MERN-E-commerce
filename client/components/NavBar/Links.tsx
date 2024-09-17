@@ -22,7 +22,7 @@
             </div>
           </MenuItem>
         </Menu>
-        <Link href= {'/'}>New</Link>
+        <Link href= {'/categories'}>New</Link>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ReactQueryProvider from "@/components/Util/ReactQueryProvider";
-import Natfication from "@/components/Util/Natfication";
+import ReactQueryProvider from "@/Util/ReactQueryProvider";
+import Natfication from "@/Util/Natfication";
 import Nav from "@/components/NavBar/Nav";
 
 

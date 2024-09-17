@@ -3,8 +3,9 @@ import axios, { AxiosError } from 'axios';
 import React, { SyntheticEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSnackbar } from 'notistack';
-import { UserError } from '@/error';
+
 import Link from 'next/link';
+import { UserError } from '@/models/error';
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');

@@ -81,7 +81,7 @@ export const HoveredLink = ({ children, ...rest }: any) => {
   return (
     <Link
       {...rest}
-      className={`dark:text-gray-500 hover:text-black relative ${style.LinkHover} text-center`}
+      className={`dark:text-white hover:text-black relative ${style.LinkHover} text-center`}
     >
       {children}
     </Link>
