@@ -7,7 +7,8 @@ interface Product extends Document {
     description: string;
     stock: number;
     image: string[];
-    size: string[];
+    size?: string[];
+    rate: number;
     reviews: mongoose.Schema.Types.ObjectId[]; 
 }
 
@@ -44,12 +45,15 @@ const productSchema = new Schema<Product>({
     },
     size: {
         type: [String],
-        required: true,
     },
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review',
-      }]
+      }],
+      rate:{
+        type: Number,
+        required:true
+      }
 }, { timestamps: true });
 
 // model 

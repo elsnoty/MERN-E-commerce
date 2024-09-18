@@ -14,19 +14,19 @@ export const AnimatedProduct = (props: {item:ProductsProp}) => {
     const opacityProgress = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
     return (
       <motion.div
-      className={`py-5 z-20 `}
+      className={`z-20`}
       ref={ref}
       style={{
         scale: scaleProgress,
         opacity: opacityProgress,
       }}>
-        <div className="w-[400px] h-[300px]">
+        <div >
           <div>
             <Image src={props.item.image[0]}
               alt={props.item.name}               
-              className="w-[300px] h-[250px]"
-              width={300}
-              height={200}
+              className="max-h-[250px]"
+              width={280}
+              height={250}
               priority
               />
             <p className="text-wrap">{props.item.name}</p>

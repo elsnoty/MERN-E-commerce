@@ -1,12 +1,11 @@
 "use client";
 import { ProductsProp } from "@/models/Products";
-import useFetchProduct from "@/Util/FetchAllProduct";
+import { useFetchSingleProduct } from "@/Util/FetchAllProduct";
 import Image from "next/image";
 
 
-
-const ProductDetails = ({params}: {params: {id:string}}) => {
-  const {ProductData, isPending, error} = useFetchProduct<ProductsProp>(
+const ProductDetails = ({params}: {params: {id: string}}) => {
+  const {ProductData, isPending, error} = useFetchSingleProduct<ProductsProp>(
     `http://localhost:3002/api/products/${params.id}`,
     'product',
   )

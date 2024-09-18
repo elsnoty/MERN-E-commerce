@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent } from 'react';
-import useFetchProduct from '../../Util/FetchAllProduct';
+import useFetchProduct from '../../Util/SearchFetch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import style from "./style.module.css";
@@ -15,7 +15,7 @@ const SearchComponent = () => {
   const [name, setName] = useState('');
   const router = useRouter(); // Get the router instance
 
-  const { ProductData, isPending } = useFetchProduct<Search[]>(
+  const { ProductData, isLoading } = useFetchProduct<Search[]>(
     "http://localhost:3002/api/products",
     'searchRes'
   );
@@ -26,7 +26,7 @@ const SearchComponent = () => {
       )
     : [];
 
-  if (isPending) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
