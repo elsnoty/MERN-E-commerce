@@ -3,6 +3,7 @@ import "./globals.css";
 import ReactQueryProvider from "@/Util/ReactQueryProvider";
 import Natfication from "@/Util/Natfication";
 import Nav from "@/components/NavBar/Nav";
+import ReduxProvider from "@/Util/ReduxProvider";
 
 
 export const metadata: Metadata = {
@@ -21,10 +22,12 @@ export default function RootLayout({
         className={`antialiased`}
       >
         <ReactQueryProvider>
+          <ReduxProvider>
           <Natfication>
             <Nav />
             {children}
           </Natfication>
+          </ReduxProvider>
         </ReactQueryProvider>
       </body>
     </html>

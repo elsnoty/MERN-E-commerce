@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 // Get all products
 const GetAllProducts = async (req: Request, res: Response) => {
-    const page = req.query.p ? parseInt(req.query.p as string, 10) : undefined;
+    const page = req.query.p ? parseInt(req.query.p as string, 10) - 1 : 0; // Adjust to start from 1
     const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : undefined;
 
     try {
@@ -37,10 +37,10 @@ const GetAllProducts = async (req: Request, res: Response) => {
 
 // Post a product
 const PostProduct = async (req: Request, res: Response) => {
-    const { name, categories, price, description, stock, image, size, rate } = req.body;
+    const { name, categories, price, description, stock, image, size, rate, discount } = req.body;
 
     try {
-        const product = await ProductModel.create({ name, categories, price, description, stock, image, size, rate });
+        const product = await ProductModel.create({ name, categories, price, description, stock, image, size, rate, discount });
         res.status(200).json(product);
     } catch (error) {
         if (error instanceof Error) {

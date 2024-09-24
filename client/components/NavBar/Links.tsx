@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utills";
-import { HoveredLink, Menu, MenuItem } from "./NavLinks";
+import { cn } from "@/lib/utils";
+import { Menu, MenuItem } from "./NavLinks";
 
 export default function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -15,12 +15,11 @@ export default function Navbar({ className }: { className?: string }) {
         <MenuItem setActive={setActive} active={active} item="Clothing">
           <div className="flex flex-col space-y-4 text-sm">
             {categories.map((category, index) => (
-              <HoveredLink
+              <p
                 key={index}
-                href={`/categories/${category.toLowerCase()}`}
               >
                 {category}
-              </HoveredLink>
+              </p>
             ))}
           </div>
         </MenuItem>

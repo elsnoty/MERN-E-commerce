@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import style from "./style.module.css"
 
 const transition = {
   type: "spring",
@@ -74,16 +72,5 @@ export const Menu = ({
     >
       {children}
     </nav>
-  );
-};
-
-export const HoveredLink = ({ children, ...rest }: any) => {
-  return (
-    <Link
-      {...rest}
-      className={`dark:text-white hover:text-black relative ${style.LinkHover} text-center`}
-    >
-      {children}
-    </Link>
   );
 };

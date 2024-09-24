@@ -1,75 +1,85 @@
 import {
-    Pagination,
-    PaginationContent,
-    PaginationPrevious,
-    PaginationItem,
-    PaginationLink,
-    PaginationEllipsis,
-    PaginationNext,
-  } from "./pagination";
-  
-  const PaginationCompontent = (props: {handleNext: (Next: number) => void, page: number, totalPages: number,}) => {
-    return (
-      <Pagination>
-        <PaginationContent>
+  Pagination,
+  PaginationContent,
+  PaginationPrevious,
+  PaginationItem,
+  PaginationLink,
+  PaginationEllipsis,
+  PaginationNext,
+} from "./pagination";
+
+const PaginationCompontent = (props: {
+  handleNext: (next: number) => void;
+  page: number;
+  totalPages: number;
+}) => {
+  const { page, totalPages, handleNext } = props;
+
+  return (
+        <Pagination>
+          <PaginationContent>
           <PaginationPrevious
-            onClick={() => props.handleNext(props.page - 1)
-              
-            }
-          />
-          {props.page >= 1 && (
-            <PaginationItem>
-              <PaginationLink onClick={() => props.handleNext(0)}>
-                0
-              </PaginationLink>
-            </PaginationItem>
-          )}
-          {props.page > 2 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {props.page > 1 && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => props.handleNext(props.page - 1)}
-              >
-                {props.page - 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
+          onClick={() => handleNext(page > 1 ? page - 1 : page)}
+          className={page === 1 ? "disabled" : ""} 
+        />
+
+        {page > 1 && (
           <PaginationItem>
-            <PaginationLink isActive>{props.page}</PaginationLink>
+            <PaginationLink onClick={() => handleNext(1)}>1</PaginationLink>
           </PaginationItem>
-          {props.page < props.totalPages && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => props.handleNext(props.page + 1)}
-              >
-                {props.page + 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
-          {props.page < props.totalPages - 2 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {props.page < props.totalPages - 1 && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => props.handleNext(props.totalPages)}
-              >
-                {props.totalPages}
-              </PaginationLink>
-            </PaginationItem>
-          )}
-          <PaginationNext
-            onClick={() => props.handleNext(props.page + 1)}
-          />
-        </PaginationContent>
-      </Pagination>
-    );
-  };
-  
-  export default PaginationCompontent;
+        )}
+
+        {page > 3 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {page > 2 && (
+          <PaginationItem>
+            <PaginationLink onClick={() => handleNext(page - 1)}>
+              {page - 1}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
+        {/* Show the current page as active */}
+        <PaginationItem>
+          <PaginationLink isActive>{page}</PaginationLink>
+        </PaginationItem>
+
+        {/* Show the next page if applicable */}
+        {page < totalPages && (
+          <PaginationItem>
+            <PaginationLink onClick={() => handleNext(page + 1)}>
+              {page + 1}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
+        {/* Ellipsis for when there are multiple pages after the current page */}
+        {page < totalPages - 2 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {/* Show the last page if applicable */}
+        {page < totalPages && (
+          <PaginationItem>
+            <PaginationLink onClick={() => handleNext(totalPages)}>
+              {totalPages}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
+        <PaginationNext
+          onClick={() => handleNext(page < totalPages ? page + 1 : page)}
+          className={page === totalPages ? "disabled" : ""} // Add a class for disabled state
+        />
+      </PaginationContent>
+    </Pagination>
+  );
+};
+
+export default PaginationCompontent;

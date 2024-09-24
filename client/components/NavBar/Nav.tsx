@@ -9,7 +9,7 @@ import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 
 const Nav = () => {
   return (
-    <div className='flex justify-between bg-emerald-600/50 items-center px-10 max-md:py-4 lg:px-20'>
+    <div className='flex justify-between bg-white/40 shadow-xl items-center px-10 max-md:py-4 lg:px-20'>
       <div className='flex gap-1 items-center'>
         <Link href={'/'}>GW STORE</Link>
         <Navbar className='max-md:hidden flex items-center'/>

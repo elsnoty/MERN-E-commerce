@@ -10,6 +10,7 @@ interface Product extends Document {
     size?: string[];
     rate: number;
     reviews: mongoose.Schema.Types.ObjectId[]; 
+    discount: number;
 }
 
 // Define the schema for the product
@@ -53,6 +54,10 @@ const productSchema = new Schema<Product>({
       rate:{
         type: Number,
         required:true
+      },
+      discount:{
+        type:Number,
+        default:0
       }
 }, { timestamps: true });
 

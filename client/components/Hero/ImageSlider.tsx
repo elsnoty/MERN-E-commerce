@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utills";
+import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";

@@ -5,7 +5,7 @@ import { AnimatedProduct } from "./AnimatedProduct";
 import Loader from "@/Util/Loader";
 import { useState, useEffect } from "react";
 import PaginationCompontent from "../ui/CustomPag";
-import { useFetchProductList } from "@/Util/FetchAllProduct";
+import { useFetchProductList } from "@/hooks/FetchAllProduct";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function AllProducts() {
@@ -13,7 +13,7 @@ export default function AllProducts() {
   const searchParams = useSearchParams();
   
   const limit = 8;
-  const currentPage = searchParams.get('p') ? parseInt(searchParams.get('p') as string, 10) : 0; // Get current page from URL or default to 0
+  const currentPage = searchParams.get('p') ? parseInt(searchParams.get('p') as string, 10) : 1;
   const [page, setPage] = useState(currentPage);
 
   useEffect(() => {
@@ -40,6 +40,12 @@ export default function AllProducts() {
   if (error) {
     return <div>Error Fetching data...</div>;
   }
+//   const handleFilter = ()=>{
+    
+//   }
+//   console.log(
+// ProductData.filter((e)=>ProductData.image && ProductData.image.length > 0 e.categories[0] === )
+//   )
 
   return (
     <div>
@@ -50,7 +56,7 @@ export default function AllProducts() {
           ProductData?.map((product) => (
             <Link
               href={`/categories/${product._id}`}
-              className="max-w-[280px] p-3"
+              className="max-w-[290px] rounded-xl"
               key={product._id}
             >
               <AnimatedProduct item={product} />
