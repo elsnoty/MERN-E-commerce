@@ -8,7 +8,7 @@ import {
   PaginationNext,
 } from "./pagination";
 
-const PaginationCompontent = (props: {
+const PaginationComponent = (props: {
   handleNext: (next: number) => void;
   page: number;
   totalPages: number;
@@ -16,10 +16,14 @@ const PaginationCompontent = (props: {
   const { page, totalPages, handleNext } = props;
 
   return (
-        <Pagination>
-          <PaginationContent>
-          <PaginationPrevious
-          onClick={() => handleNext(page > 1 ? page - 1 : page)}
+    <Pagination>
+      <PaginationContent>
+        <PaginationPrevious
+          onClick={() => {
+            if (page > 1) {
+              handleNext(page - 1);
+            }
+          }}
           className={page === 1 ? "disabled" : ""} 
         />
 
@@ -43,12 +47,10 @@ const PaginationCompontent = (props: {
           </PaginationItem>
         )}
 
-        {/* Show the current page as active */}
         <PaginationItem>
           <PaginationLink isActive>{page}</PaginationLink>
         </PaginationItem>
 
-        {/* Show the next page if applicable */}
         {page < totalPages && (
           <PaginationItem>
             <PaginationLink onClick={() => handleNext(page + 1)}>
@@ -57,14 +59,12 @@ const PaginationCompontent = (props: {
           </PaginationItem>
         )}
 
-        {/* Ellipsis for when there are multiple pages after the current page */}
         {page < totalPages - 2 && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
 
-        {/* Show the last page if applicable */}
         {page < totalPages && (
           <PaginationItem>
             <PaginationLink onClick={() => handleNext(totalPages)}>
@@ -74,12 +74,16 @@ const PaginationCompontent = (props: {
         )}
 
         <PaginationNext
-          onClick={() => handleNext(page < totalPages ? page + 1 : page)}
-          className={page === totalPages ? "disabled" : ""} // Add a class for disabled state
+          onClick={() => {
+            if (page < totalPages) {
+              handleNext(page + 1);
+            }
+          }}
+          className={page === totalPages ? "disabled" : ""} 
         />
       </PaginationContent>
     </Pagination>
   );
 };
 
-export default PaginationCompontent;
+export default PaginationComponent;

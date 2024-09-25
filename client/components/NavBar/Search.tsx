@@ -13,9 +13,9 @@ interface Search {
 
 const SearchComponent = () => {
   const [name, setName] = useState('');
-  const router = useRouter(); // Get the router instance
+  const router = useRouter();
 
-  const { ProductData, isPending } = useFetchProductList<Search[]>(
+  const { products: ProductData, isPending } = useFetchProductList<Search[]>(
     "http://localhost:3002/api/products",
     ['searchRes']
   );

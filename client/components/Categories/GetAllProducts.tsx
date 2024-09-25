@@ -1,74 +1,86 @@
 "use client";
-import Link from "next/link";
+import { useEffect } from "react";
 import { ProductsProp } from "@/models/Products";
-import { AnimatedProduct } from "./AnimatedProduct";
 import Loader from "@/Util/Loader";
-import { useState, useEffect } from "react";
-import PaginationCompontent from "../ui/CustomPag";
+import PaginationComponent from "../ui/CustomPag";
 import { useFetchProductList } from "@/hooks/FetchAllProduct";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from 'react-redux';
+import FilterSide from "./FilterSide";
+import { selectProducts, setProducts } from "@/store/ProductSlice";
+import ProductGrid from "./ProductGrid";
 
 export default function AllProducts() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  
+  const router = useRouter();
+
+  // Get selected categories from query (it could be a comma-separated string)
+  const categoryFilter = searchParams.get("category")?.split(",") || [];
+  const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;
+
   const limit = 8;
-  const currentPage = searchParams.get('p') ? parseInt(searchParams.get('p') as string, 10) : 1;
-  const [page, setPage] = useState(currentPage);
 
-  useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
 
-  const { ProductData, isPending, error, totalCount } = useFetchProductList<ProductsProp[]>(
-    `http://localhost:3002/api/products?p=${page}&limit=${limit}`,
-    ["products", page],
+  // Fetch product data
+  const { products: fetchedProducts, isPending, error } = useFetchProductList<ProductsProp[]>(
+    `http://localhost:3002/api/products`,
+    ["products"]
   );
 
-  if (!totalCount) {
-    return null;
+  // Dispatch products to Redux store when data is fetched
+  useEffect(() => {
+    if (fetchedProducts.length > 0) {
+      dispatch(setProducts(fetchedProducts));
+    }
+  }, [fetchedProducts, dispatch]);
+
+
+  if (error) {
+    return <div className="text-red-500">Error Fetching data...</div>;
   }
-  
-  const total = Math.ceil(totalCount / limit);
-  
-  const handlePage = (newPage: number) => {
-    if (newPage >= 0 && newPage <= total) {
-      router.push(`/categories?p=${newPage}`);
+
+  const filteredProducts = categoryFilter.length
+    ? products.filter(product =>
+        product.categories?.some(category => categoryFilter.includes(category.toLowerCase()))
+      )
+    : products;
+
+  const total = Math.ceil(filteredProducts.length / limit);
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * limit, currentPage * limit);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= total) {
+      // Navigate to new page with the same category filters
+      const categoryQuery = categoryFilter.length ? `category=${categoryFilter.join(',')}` : '';
+      router.push(`/categories?${categoryQuery}&p=${newPage}`);
     }
   };
 
-  if (error) {
-    return <div>Error Fetching data...</div>;
-  }
-//   const handleFilter = ()=>{
-    
-//   }
-//   console.log(
-// ProductData.filter((e)=>ProductData.image && ProductData.image.length > 0 e.categories[0] === )
-//   )
-
   return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {isPending ? (
-          <Loader />
-        ) : (
-          ProductData?.map((product) => (
-            <Link
-              href={`/categories/${product._id}`}
-              className="max-w-[290px] rounded-xl"
-              key={product._id}
-            >
-              <AnimatedProduct item={product} />
-            </Link>
-          ))
-        )}
+
+    <div className="p-4 flex justify-between gap-3">
+      <FilterSide />
+      <div className="flex-1">
+        {isPending ?
+        (
+        <div className='grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:justify-center justify-items-center py-14 flex-1'>
+        <Loader />
+        <Loader />
+        <Loader />
+        <Loader />
+        </div>
+        ):
+        <ProductGrid products={paginatedProducts} />
+      }
+        <PaginationComponent
+          page={currentPage}
+          totalPages={total}
+          handleNext={handlePageChange}
+        />
       </div>
-      <PaginationCompontent 
-        page={page}
-        totalPages={total}
-        handleNext={handlePage}
-      />
     </div>
+
   );
 }

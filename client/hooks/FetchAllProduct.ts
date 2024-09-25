@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const useFetchProductList = <T>(url: string, queryKey: (string | number)[]) => {
-  const { data, isPending, error } = useQuery<{ products: T; totalCount?: number}>({
-    queryKey: [queryKey],
+  const { data, isLoading, error } = useQuery<{ products: T; totalCount: number }>({
+    queryKey: queryKey, 
     queryFn: async () => {
       const response = await axios.get(url);
       return response.data;
@@ -11,15 +11,16 @@ const useFetchProductList = <T>(url: string, queryKey: (string | number)[]) => {
   });
 
   return {
-    ProductData: data?.products || [],  // For product list
+    products: data?.products || [],  
     totalCount: data?.totalCount,
-    isPending,
+    isPending: isLoading,
     error,
   };
 };
+
 const useFetchSingleProduct = <T>(url: string, queryKey: string) => {
   const { data, isLoading, error } = useQuery<T>({
-    queryKey: [queryKey, url], // Ensure queryKey includes both a unique key and the URL
+    queryKey: [queryKey, url],
     queryFn: async () => {
       const response = await axios.get(url);
       return response.data;
@@ -28,7 +29,7 @@ const useFetchSingleProduct = <T>(url: string, queryKey: string) => {
 
   return {
     ProductData: data,
-    isLoading,  // You can alias isLoading to isPending if preferred
+    isLoading, 
     error,
   };
 };
