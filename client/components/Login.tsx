@@ -1,5 +1,5 @@
 "use client"
-import { UserError } from '@/error'
+import { UserError } from '@/models/error'
 import axios, { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

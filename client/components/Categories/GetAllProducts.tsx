@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { ProductsProp } from "@/models/Products";
 import Loader from "@/Util/Loader";
 import PaginationComponent from "../ui/CustomPag";
@@ -16,7 +15,7 @@ export default function AllProducts() {
 
   // Get selected categories from query (it could be a comma-separated string)
   const categoryFilter = searchParams.get("category")?.split(",") || [];
-  const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;
+  const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;// to make the papenation start form page 1
 
   const limit = 8;
 
@@ -30,11 +29,11 @@ export default function AllProducts() {
   );
 
   // Dispatch products to Redux store when data is fetched
-  useEffect(() => {
+ 
     if (fetchedProducts.length > 0) {
       dispatch(setProducts(fetchedProducts));
     }
-  }, [fetchedProducts, dispatch]);
+
 
 
   if (error) {
@@ -78,6 +77,7 @@ export default function AllProducts() {
           page={currentPage}
           totalPages={total}
           handleNext={handlePageChange}
+          
         />
       </div>
     </div>

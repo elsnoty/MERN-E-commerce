@@ -1,12 +1,8 @@
 import * as React from "react"
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons"
-
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronLeft, faChevronRight, faEllipsis } from "@fortawesome/free-solid-svg-icons"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -51,13 +47,13 @@ const PaginationLink = ({
 }: PaginationLinkProps) => (
   <a
     aria-current={isActive ? "page" : undefined}
-    className={cn(
+    className={`${cn(
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
         size,
       }),
       className
-    )}
+    )} cursor-pointer`}
     {...props}
   />
 )
@@ -70,10 +66,10 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 pl-2.5", className)}
+    className={cn("gap-1 pl-2.5 cursor-pointer", className)}
     {...props}
   >
-    <ChevronLeftIcon className="h-4 w-4" />
+    <FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
     <span>Previous</span>
   </PaginationLink>
 )
@@ -86,11 +82,11 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 pr-2.5", className)}
+    className={cn("gap-1 pr-2.5 cursor-pointer", className)}
     {...props}
   >
     <span>Next</span>
-    <ChevronRightIcon className="h-4 w-4" />
+    <FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"
@@ -104,7 +100,7 @@ const PaginationEllipsis = ({
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <DotsHorizontalIcon className="h-4 w-4" />
+    <FontAwesomeIcon icon={faEllipsis} className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
 )

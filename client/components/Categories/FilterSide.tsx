@@ -36,15 +36,24 @@ const FilterSide = () => {
         {categories.map((category) => (
           <li key={category} className="mb-2">
             <label className="flex items-center">
-              <input
-                type="checkbox"
-                value={category.toLowerCase()}
-                checked={selectedCategories.includes(category.toLowerCase())}
-                onChange={() => handleCategoryChange(category)}
-                className="mr-2"  
-              />
-              {category}
-            </label>
+  <input
+    type="checkbox"
+    value={category.toLowerCase()}
+    checked={selectedCategories.includes(category.toLowerCase())}
+    onChange={() => handleCategoryChange(category)}
+    className="hidden"
+  />
+  <span
+    className={`cursor-pointer px-3 py-1 rounded-full border-2 border-gray-400 transition ${
+      selectedCategories.includes(category.toLowerCase())
+        ? 'bg-blue-500 text-white'
+        : 'bg-white text-black'
+    }`}
+  >
+    {category}
+  </span>
+</label>
+
           </li>
         ))}
       </ul>

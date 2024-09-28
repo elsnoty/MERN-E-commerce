@@ -48,7 +48,7 @@ const PaginationComponent = (props: {
         )}
 
         <PaginationItem>
-          <PaginationLink isActive>{page}</PaginationLink>
+          <PaginationLink isActive className="cursor-pointer">{page}</PaginationLink>
         </PaginationItem>
 
         {page < totalPages && (

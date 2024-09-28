@@ -6,6 +6,7 @@ import ProductRotues from './routes/Products'
 import UserRoutes from './routes/Users'
 import ReviewsRoutes from './routes/Reviews'
 import cors from "cors"
+import ordersRoute from './routes/Orders';
 
 const app = express();
 
@@ -35,4 +36,5 @@ mongoose.connect(dbConnectionString)
 // routes
 app.use('/api', ProductRotues)
 app.use('/api', UserRoutes)
-app.use('/api/reviews', ReviewsRoutes)
+app.use('/api', ReviewsRoutes)
+app.use('/api', ordersRoute)

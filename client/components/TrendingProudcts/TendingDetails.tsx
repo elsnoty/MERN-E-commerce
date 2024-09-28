@@ -8,17 +8,17 @@ import { AnimatedProduct } from '../Categories/AnimatedProduct';
 
 const TrendingDetails= () => {
     const { products, isPending, error} = useFetchProductList<ProductsProp[]>(
-        `http://localhost:3002/api/products?p=&limit=4`,
-        ["products"],
+        `http://localhost:3002/api/products?p=1&limit=4`,
+        ["Trending"],
       );
 
       if (error) {
         return <div>Error Fetching data...</div>;
       }
   return (
-    <div className='flex flex-wrap w-full justify-center items-center gap-5 px-5'>
+    <div className='flex flex-wrap w-full justify-center items-center gap-5 '>
       {isPending && (
-        <div className='grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:justify-center justify-items-center py-14 flex-1'>
+        <div className='flex-1 grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 py-14'>
         <Loader />
         <Loader />
         <Loader />
@@ -29,7 +29,7 @@ const TrendingDetails= () => {
           products?.map((product) => (
             <Link
               href={`/categories/${product._id}`}
-              className="max-w-[290px] p-3 shadow-2xl rounded-xl text-start"
+              className="max-w-[290px] p-3 shadow-2xl rounded-xl"
               key={product._id}
             >
               <AnimatedProduct item={product} />

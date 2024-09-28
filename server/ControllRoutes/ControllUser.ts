@@ -45,6 +45,19 @@ const Login = async (req: Request, res: Response)=>{
     res.json({token, userID:user._id})
 }
 
+const GetUseres = async (req: Request, res: Response)=>{
+  try {
+  const users = await UserModel.find({}).sort()
+  res.status(200).json(users);
+    
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+  } else {
+      res.status(400).json({ error: 'An unknown error occurred' });
+  }
+  }
+}
     const verifyToken = (req: Request, res:Response , next: NextFunction) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -58,4 +71,4 @@ const Login = async (req: Request, res: Response)=>{
       res.sendStatus(401);
     }
   };
-export {Register, Login, verifyToken};
+export {Register, Login, verifyToken, GetUseres};

@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import SideMenu from './SideMenu'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import LogoutButton from '../Logout'
 
 
 const Nav = () => {
   return (
-    <div className='flex justify-between bg-white/40 shadow-xl items-center px-10 max-md:py-4 lg:px-20'>
-      <div className='flex gap-1 items-center'>
+    <div className='flex justify-between bg-white/40 shadow-xl items-center px-10 max-sm:px-4 max-md:py-4 lg:px-20'>
+      <div className='flex gap-1 items-center mr-2'>
         <Link href={'/'}>GW STORE</Link>
         <Navbar className='max-md:hidden flex items-center'/>
       </div>
@@ -20,6 +21,8 @@ const Nav = () => {
           <FontAwesomeIcon icon={faBagShopping} size='xl' className='cursor-pointer hover:bg-gray-500 w-5 h-5 rounded-full p-2'/>
         </Link>
         <Link href={'/orders'} >orders</Link>
+        <Link href={'/auth/login'}>Login</Link>
+        <LogoutButton />
         <SideMenu className='md:hidden'/>
       </div>
     </div>

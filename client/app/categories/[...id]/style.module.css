@@ -40,3 +40,16 @@
     }
   }
   
+  .btnHover{
+    color: white;
+    background: #000;
+    font-size: large;
+    transition: all;
+    transition-duration: 400ms;
+    padding: 8px;
+  }
+
+  .btnHover:hover{
+    color: #000;
+    background: #fff;
+  }
