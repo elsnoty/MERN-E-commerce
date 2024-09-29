@@ -6,16 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { updateQuantity, removeFromCart } from '@/store/CartSlice';
 import { useSnackbar } from 'notistack';
+import { CartItemProps } from '@/models/Products';
 
-interface CartItemProps {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
 
-const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
+
+const CartItem = ({ id, name, price, quantity, image, size }: CartItemProps) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -35,6 +30,7 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
         <div className='ml-6'>
           <h4 className='font-medium text-lg'>{name}</h4>
           <p className='text-sm text-gray-500'>${price.toFixed(2)}</p>
+          <p>Size: {size}</p>
         </div>
       </Link>
       <div className='flex items-center'>

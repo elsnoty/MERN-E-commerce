@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/navigation";
 import { toggleCategory, selectSelectedCategories } from '@/store/ProductSlice';
@@ -7,6 +7,8 @@ import { toggleCategory, selectSelectedCategories } from '@/store/ProductSlice';
 const categories = ['Men', 'Kids', 'Women', 'Shoes', 'Clothes', 'Electronics'];
 
 const FilterSide = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const selectedCategories = useSelector(selectSelectedCategories);
@@ -30,33 +32,47 @@ const FilterSide = () => {
   };
 
   return (
-    <div className="p-4 bg-[#39405842] text-white rounded-lg max-w-[400px] w-full">
-      <h2 className="text-lg font-bold mb-4">Filter by Category</h2>
-      <ul>
-        {categories.map((category) => (
-          <li key={category} className="mb-2">
-            <label className="flex items-center">
-  <input
-    type="checkbox"
-    value={category.toLowerCase()}
-    checked={selectedCategories.includes(category.toLowerCase())}
-    onChange={() => handleCategoryChange(category)}
-    className="hidden"
-  />
-  <span
-    className={`cursor-pointer px-3 py-1 rounded-full border-2 border-gray-400 transition ${
-      selectedCategories.includes(category.toLowerCase())
-        ? 'bg-blue-500 text-white'
-        : 'bg-white text-black'
-    }`}
-  >
-    {category}
-  </span>
-</label>
+    <div className="relative lg:static">
+      <button
+        className="lg:hidden block mb-4 text-white bg-blue-600 px-4 py-2 rounded-lg shadow-md "
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? "Hide Filters" : "Show Filters"}
+      </button>
 
-          </li>
-        ))}
-      </ul>
+      <div
+        className={`p-4 bg-white text-black rounded-lg max-w-full lg:min-w-[300px] shadow-xl transition-all duration-300 ease-in-out ${
+          isOpen ? "block" : "hidden lg:block"
+        }`}
+      >
+        <h2 className="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2">
+          Filter by Category
+        </h2>
+        <ul className="space-y-2">
+          {categories.map((category) => (
+            <li key={category} className="mb-2 w-fit">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  value={category.toLowerCase()}
+                  checked={selectedCategories.includes(category.toLowerCase())}
+                  onChange={() => handleCategoryChange(category)}
+                  className="hidden"
+                />
+                <span
+                  className={`px-3 py-1 rounded-full border-2 border-gray-500 transition-all duration-200 ease-in-out hover:bg-blue-800 hover:text-white ${
+                    selectedCategories.includes(category.toLowerCase())
+                      ? "bg-blue-700 text-white"
+                      : "bg-gray-100 text-black"
+                  }`}
+                >
+                  {category}
+                </span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

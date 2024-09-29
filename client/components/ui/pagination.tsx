@@ -53,7 +53,7 @@ const PaginationLink = ({
         size,
       }),
       className
-    )} cursor-pointer`}
+    )} cursor-pointer hover:bg-slate-200`}
     {...props}
   />
 )
@@ -66,11 +66,10 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 pl-2.5 cursor-pointer", className)}
+    className={cn("gap-1 pl-2.5 cursor-pointer hover:bg-slate-200", className)}
     {...props}
   >
     <FontAwesomeIcon icon={faChevronLeft} className="h-4 w-4" />
-    <span>Previous</span>
   </PaginationLink>
 )
 PaginationPrevious.displayName = "PaginationPrevious"
@@ -82,10 +81,9 @@ const PaginationNext = ({
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 pr-2.5 cursor-pointer", className)}
+    className={cn("gap-1 pr-2.5 cursor-pointer hover:bg-slate-200", className)}
     {...props}
   >
-    <span>Next</span>
     <FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
   </PaginationLink>
 )

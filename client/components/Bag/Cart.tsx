@@ -40,6 +40,7 @@ const Cart = () => {
       image: item.image,
       quantity: item.quantity,
       price: item.price,
+      size: item.size
     }));
 
     try {
@@ -76,7 +77,7 @@ const Cart = () => {
       ) : (
         <div>
           {cartItems.map((item) => (
-            <CartItem key={item.id} {...item} />
+            <CartItem key={`${item.id}-${item.size}`} {...item} />
           ))}
           <OrderSummary totalPrice={totalPrice} onCheckout={handleCheckout} />
         </div>

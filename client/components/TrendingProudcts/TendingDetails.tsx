@@ -18,7 +18,7 @@ const TrendingDetails= () => {
   return (
     <div className='flex flex-wrap w-full justify-center items-center gap-5 '>
       {isPending && (
-        <div className='flex-1 grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 py-14'>
+        <div className='flex flex-wrap py-10 justify-center gap-3'>
         <Loader />
         <Loader />
         <Loader />
@@ -29,7 +29,7 @@ const TrendingDetails= () => {
           products?.map((product) => (
             <Link
               href={`/categories/${product._id}`}
-              className="max-w-[290px] p-3 shadow-2xl rounded-xl"
+              className="max-w-[290px] p-2 rounded-xl"
               key={product._id}
             >
               <AnimatedProduct item={product} />

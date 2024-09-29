@@ -5,13 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion
 import Navbar from './Links';
+import AuthNav from './AuthNav';
 
 const SideMenu = ({ className }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
-    setIsOpen(prev => !prev); // Simplified toggle
+    setIsOpen(prev => !prev);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -48,7 +49,7 @@ const SideMenu = ({ className }: { className?: string }) => {
           animate={{ x: 0 }} 
           exit={{ x: '100%' }}
           transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-          className={`absolute right-0 top-0 bg-green-700 p-5 text-black h-screen w-[60%] max-sm:w-full `}
+          className={`absolute right-0 top-0 bg-white p-5 text-black h-screen w-[60%] max-sm:w-full `}
           style={{ zIndex: 100 }}
         >
           <div className='flex justify-between items-start pb-4'>
@@ -58,7 +59,10 @@ const SideMenu = ({ className }: { className?: string }) => {
               onClick={toggleMenu}
             />
           </div>
-          <Navbar />
+          <div className='flex flex-col items-center gap-y-2'>
+          <Navbar toggleMenu={toggleMenu}/>
+          <AuthNav className='flex flex-col items-center' toggleMenu={toggleMenu}/>
+          </div>
         </motion.div>
       )}
       </AnimatePresence>

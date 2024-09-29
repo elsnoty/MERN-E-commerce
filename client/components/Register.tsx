@@ -34,26 +34,41 @@ const RegisterForm = () => {
     };
 
     return (
-        <div>
-        <form onSubmit={handelForm} className="flex flex-col gap-y-4">
-            <label>UserName:</label>
-            <input 
-                type="text" 
-                onChange={(e) => setUsername(e.target.value)} 
-                value={username} 
-                className="border" 
+        <div className="flex justify-center items-center h-screen bg-gray-100">
+        <form
+          onSubmit={handelForm}
+          className="w-full max-w-md bg-white p-8 rounded-lg shadow-md flex flex-col gap-y-6"
+        >
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Register</h2>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-3 border rounded focus:outline-none focus:border-blue-500"
             />
-            <label>Password:</label>
-            <input 
-                onChange={(e) => setPassword(e.target.value)} 
-                value={password} 
-                className="border" 
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border rounded focus:outline-none focus:border-blue-500"
             />
-            <button type="submit" className="p-3 bg-green-500">Register</button>
+          </div>
+          <button type="submit" className="w-full p-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
+            Login
+          </button>
+          <div className="flex justify-between items-center mt-4">
+            <p className="text-sm text-gray-500">You have account?</p>
+            <Link href="/auth/login" className="text-sm text-blue-500 hover:underline">
+              Login
+            </Link>
+          </div>
         </form>
-        <p>You have account?</p>
-        <Link href={'/auth/login'} className='underline'>Login</Link>
-        </div>
+      </div>
     );
 };
 

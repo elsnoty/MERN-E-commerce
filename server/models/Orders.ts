@@ -5,6 +5,7 @@ interface IProduct {
   quantity: number;
   price: number;
   image: string;
+  size:string;
 }
 
 interface IOrder extends Document {
@@ -21,7 +22,8 @@ const OrderSchema: Schema = new Schema({
       productId: { type: String, required: true },
       quantity: { type: Number, required: true, default: 1 },
       price: { type: Number, required: true },
-      image: {type: String, required: true}
+      image: {type: String, required: true},
+      size: {type: String,}
     },
   ],
   total: { type: Number, required: true },

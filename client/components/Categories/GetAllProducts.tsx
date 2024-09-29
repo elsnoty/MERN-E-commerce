@@ -1,4 +1,5 @@
-"use client";
+'use client'
+import React, { useEffect } from 'react';
 import { ProductsProp } from "@/models/Products";
 import Loader from "@/Util/Loader";
 import PaginationComponent from "../ui/CustomPag";
@@ -15,7 +16,7 @@ export default function AllProducts() {
 
   // Get selected categories from query (it could be a comma-separated string)
   const categoryFilter = searchParams.get("category")?.split(",") || [];
-  const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;// to make the papenation start form page 1
+  const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;
 
   const limit = 8;
 
@@ -29,12 +30,11 @@ export default function AllProducts() {
   );
 
   // Dispatch products to Redux store when data is fetched
- 
-    if (fetchedProducts.length > 0) {
+  useEffect(() => {
+    if (fetchedProducts && fetchedProducts.length > 0) {
       dispatch(setProducts(fetchedProducts));
     }
-
-
+  }, [fetchedProducts, dispatch]); // Add dispatch and fetchedProducts as dependencies
 
   if (error) {
     return <div className="text-red-500">Error Fetching data...</div>;
@@ -51,36 +51,32 @@ export default function AllProducts() {
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= total) {
-      // Navigate to new page with the same category filters
       const categoryQuery = categoryFilter.length ? `category=${categoryFilter.join(',')}` : '';
       router.push(`/categories?${categoryQuery}&p=${newPage}`);
     }
   };
 
   return (
-
-    <div className="p-4 flex justify-between gap-3">
-      <FilterSide />
-      <div className="flex-1">
-        {isPending ?
-        (
-        <div className='grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:justify-center justify-items-center py-14 flex-1'>
+<div className="p-4 flex flex-col lg:flex-row justify-between gap-3">
+  <FilterSide />
+  <div className="flex-1">
+    {isPending ? (
+      <div className='grid grid-cols-4 gap-y-3 max-CU1S:grid-cols-3 max-xl:grid-cols-2 
+        max-lg:grid-cols-3 max-CU2S:grid-cols-2 max-sm:grid-cols-1 place-items-center'>
         <Loader />
         <Loader />
         <Loader />
         <Loader />
-        </div>
-        ):
-        <ProductGrid products={paginatedProducts} />
-      }
-        <PaginationComponent
-          page={currentPage}
-          totalPages={total}
-          handleNext={handlePageChange}
-          
-        />
       </div>
-    </div>
-
+    ) : (
+      <ProductGrid products={paginatedProducts} />
+    )}
+    <PaginationComponent
+      page={currentPage}
+      totalPages={total}
+      handleNext={handlePageChange}
+    />
+  </div>
+</div>
   );
 }

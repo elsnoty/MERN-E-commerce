@@ -3,17 +3,17 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@r
 
 const ReviewAndDiscription = ({ discription }: { discription: string }) => {
   return (
-    <div>
-      <p className='font-bold'>
+    <div className='mt-4'>
+      <p className='pb-3'>
         Shipping 
-        <span className='block font-normal'>You&apos;ll see our shipping options at checkout. </span>
+        <span className='block font-bold'>You&apos;ll see our shipping options at checkout. </span>
       </p>
       <Accordion type="multiple" className="w-full">
         <AccordionItem value="item-1"  className='border-b-2'>
-          <AccordionTrigger className='underline font-semibold text-lg pb-4'>
+          <AccordionTrigger className='underline font-semibold text-lg pb-2'>
             Shipping & Returns
           </AccordionTrigger>
-          <AccordionContent className='max-w-[350px]'>
+          <AccordionContent className='max-w-[350px] font-Poppins '>
             Free standard shipping on orders $20+ and free 60-day returns.
           </AccordionContent>
         </AccordionItem>

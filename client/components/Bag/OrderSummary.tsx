@@ -13,7 +13,7 @@ const OrderSummary= ({ totalPrice, onCheckout }: OrderSummaryProps) => {
         <span>Total Price</span>
         <span>${totalPrice.toFixed(2)}</span>
       </div>
-      <button className='w-full bg-primary text-white py-2 rounded-lg mt-4' onClick={onCheckout}>
+      <button className='w-full bg-black text-white py-2 rounded-lg mt-4' onClick={onCheckout}>
         Proceed to Checkout
       </button>
     </div>

@@ -1,16 +1,10 @@
 import React from 'react'
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
+import { ProductOrderProp } from '@/models/Products';
 
-interface OrderItemProps {
-        productId: string;
-        quantity: number;
-        price: number;
-        name: string;
-        image: StaticImageData;
-    }
 
-const OrderItem = ({productId, name, price, quantity, image}: OrderItemProps) => {
+const OrderItem = ({productId, name, price, quantity, image, size}: ProductOrderProp) => {
   return (
             <div className="flex items-center p-2 border rounded-lg">
                 <Link href={`/categories/${productId}`}>
@@ -25,6 +19,7 @@ const OrderItem = ({productId, name, price, quantity, image}: OrderItemProps) =>
                 <p className="font-medium">{name}</p>
                 <p>Quantity: {quantity}</p>
                 <p>Price: ${price}</p>
+                <p>Size: {size}</p>
                 </div>
                 </Link>
             </div>

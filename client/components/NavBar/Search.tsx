@@ -40,17 +40,18 @@ const SearchComponent = () => {
   }
 
   return (
-    <div className="relative lg:min-w-[500px] ">
-      <div className="bg-gray-300 p-2 rounded-lg flex items-center">
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
-        <input
-          type="text"
-          placeholder="Search for a product..."
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-          value={name}
-          className="bg-transparent outline-none ml-1 w-full"
-        />
-      </div>
+
+  <div className="relative lg:min-w-[500px] md:w-full max-sm:w-4/5 mx-auto">
+    <div className="bg-gray-100 p-2 rounded-lg flex items-center border border-gray-300 shadow-sm">
+    <FontAwesomeIcon icon={faMagnifyingGlass} className={`text-gray-600 max-PHS:hidden`} />
+    <input
+      type="text"
+      placeholder="Search for a product..."
+      onChange={(e:ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+      value={name}
+      className="bg-transparent outline-none ml-1 w-full text-sm"
+    />
+  </div>
 
       {filteredProducts.length > 0 && (
         <div className={`absolute max-h-[250px] overflow-hidden overflow-y-scroll rounded-md top-12 bg-gray-200 z-50 ${style.searchList}`}>

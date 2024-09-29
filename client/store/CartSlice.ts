@@ -6,6 +6,7 @@ interface CartItem {
   price: number;
   quantity: number;
   image: string;
+  size: string;
 }
 
 interface CartState {
@@ -21,11 +22,15 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
+      // Check if a product with the same id *and* size already exists in the cart
+      const existingItem = state.items.find(
+        item => item.id === action.payload.id && item.size === action.payload.size
+      );
+
       if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += action.payload.quantity;
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push({ ...action.payload });
       }
       if (typeof window !== 'undefined') {
         localStorage.setItem('cart', JSON.stringify(state.items));

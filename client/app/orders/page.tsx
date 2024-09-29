@@ -2,21 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import { StaticImageData } from 'next/image';
 import OrderItem from '@/components/OrderPage/OrderItem';
-
-interface Product {
-  productId: string;
-  quantity: number;
-  price: number;
-  name: string;
-  image: StaticImageData;
-}
+import { ProductOrderProp } from '@/models/Products';
 
 interface Order {
   _id: string;
   userId: string;
-  products: Product[];
+  products: ProductOrderProp[];
   total: number;
 }
 
