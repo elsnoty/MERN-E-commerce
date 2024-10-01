@@ -16,4 +16,4 @@
     //single a Product
     router.get('/:id',SingleProduct )
 
-    module.exports = router;
+    export default router;

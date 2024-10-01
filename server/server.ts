@@ -1,17 +1,16 @@
-const express = require('express');
-require('dotenv').config();
-const mongoose = require('mongoose');
-const ProductRotues = require('./routes/Products')
+import express from 'express'
+import dotenv from 'dotenv'
+dotenv.config()
+import mongoose from 'mongoose'
+import ProductRotues from './routes/Products'
 import UserRoutes from './routes/Users'
 import ReviewsRoutes from './routes/Reviews'
-const cors = require('cors');
+import cors from "cors"
 import ordersRoute from './routes/Orders';
-import { Request, Response } from 'express';
 
 const app = express();
 
 // middleware
-
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -34,18 +33,14 @@ mongoose.connect(dbConnectionString)
       console.log(`Server works on port ${process.env.PORT}`);
     });
   })
-  .catch((err: any) => {
+  .catch((err) => {
     console.log("Error connecting to the database: ", err);
   });
 
 // routes
 app.use('/api/products', ProductRotues)
-app.get("/", (req: Request, res: Response) => {
-  res.json("Hello");
-});
-/*
 app.use('/api/users', UserRoutes)
 app.use('/api/reviews', ReviewsRoutes)
 app.use('/api/orders', ordersRoute)
-*/
-module.exports = app;
+
+export default app;
