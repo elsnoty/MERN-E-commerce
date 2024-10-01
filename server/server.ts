@@ -42,3 +42,5 @@ app.use('/api/products', ProductRotues)
 app.use('/api/users', UserRoutes)
 app.use('/api/reviews', ReviewsRoutes)
 app.use('/api/orders', ordersRoute)
+
+module.exports = app;
