@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
 import mongoose from 'mongoose'
-import ProductRotues from './routes/Products'
+const ProductRotues = require('./routes/Products')
 import UserRoutes from './routes/Users'
 import ReviewsRoutes from './routes/Reviews'
 import cors from "cors"
@@ -39,8 +39,9 @@ mongoose.connect(dbConnectionString)
 
 // routes
 app.use('/api/products', ProductRotues)
+/*
 app.use('/api/users', UserRoutes)
 app.use('/api/reviews', ReviewsRoutes)
 app.use('/api/orders', ordersRoute)
-
+*/
 module.exports = app;
