@@ -13,6 +13,7 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cors({
+  origin: 'http://localhost:3000',
   credentials: true,
 }));
 
@@ -37,7 +38,7 @@ mongoose.connect(dbConnectionString)
   });
 
 // routes
-app.use('/api', ProductRotues)
-app.use('/api', UserRoutes)
-app.use('/api', ReviewsRoutes)
-app.use('/api', ordersRoute)
+app.use('/api/products', ProductRotues)
+app.use('/api/users', UserRoutes)
+app.use('/api/reviews', ReviewsRoutes)
+app.use('/api/orders', ordersRoute)

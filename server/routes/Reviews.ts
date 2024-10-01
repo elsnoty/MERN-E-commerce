@@ -5,11 +5,11 @@ import {GetAllReviews, PostReview, GetReviewsByProduct} from '../ControllRoutes/
 const router = express.Router()
 
 // get all the reviews
-router.get('/reviews', GetAllReviews)
+router.get('/', GetAllReviews)
 
 // post a reviews 
-router.post('/reviews',PostReview )
+router.post('/',PostReview )
 
-router.get('/reviews/:productId',GetReviewsByProduct )
+router.get('/:productId',GetReviewsByProduct )
 
 export default router
