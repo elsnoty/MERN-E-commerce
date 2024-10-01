@@ -5,10 +5,9 @@ import Order, { IOrder } from '../models/Orders';
 const PostOrder = async (req: Request, res: Response) => {
   try {
     const { userId, products, total } = req.body;
-    console.log('Received order data:', { userId, products, total }); // Debugging line
 
     if (!userId) {
-      return res.status(401).json({ error: 'User must be logged in to place an order' });
+      return res.status(401);
     }
 
     const newOrder: IOrder = new Order({
@@ -20,8 +19,7 @@ const PostOrder = async (req: Request, res: Response) => {
     const savedOrder = await newOrder.save();
     return res.status(201).json({ message: 'Order placed successfully', order: savedOrder });
   } catch (err) {
-    console.error('Error while placing order:', err);
-    return res.status(500).json({ error: 'Server error, could not place order' });
+    return res.status(500);
   }
 };
 
@@ -33,7 +31,7 @@ const GetAllOrders = async (req: Request, res: Response) => {
       if (error instanceof Error) {
           res.status(400).json({ error: error.message });
       } else {
-          res.status(400).json({ error: 'An unknown error occurred' });
+          res.status(400);
       }
   }
 };
@@ -45,7 +43,7 @@ const GetOrder = async (req: Request, res: Response)=>{
     const orders = await Order.find({ userId });
     return res.status(200).json(orders);
   } catch (err) {
-    return res.status(500).json({ error: 'Could not retrieve orders' });
+    return res.status(500);
   }
 }
 

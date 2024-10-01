@@ -24,9 +24,9 @@ const GetAllProducts = async (req: Request, res: Response) => {
         res.status(200).json({ products, totalCount });
     } catch (error) {
         if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
+            res.status(400);
         } else {
-            res.status(400).json({ error: 'An unknown error occurred' });
+            res.status(400);
         }
     }
 };
@@ -41,9 +41,9 @@ const PostProduct = async (req: Request, res: Response) => {
         res.status(200).json(product);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
+            res.status(400);
         } else {
-            res.status(400).json({ error: 'An unknown error occurred' });
+            res.status(400);
         }
     }
 };
@@ -63,15 +63,15 @@ const UpdateProduct = async (req: Request, res: Response) => {
         });
 
         if (!updatedProduct) {
-            return res.status(404).json({ error: 'Product not found' });
+            return res.status(404);
         }
 
         res.status(200).json(updatedProduct);
     } catch (error) {
         if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
+            res.status(400);
         } else {
-            res.status(400).json({ error: 'An unknown error occurred' });
+            res.status(400);
         }
     }
 };
@@ -82,15 +82,15 @@ const SingleProduct = async (req: Request, res: Response) => {
       const { id } = req.params;
       const product = await ProductModel.findById(id);
       if (!product) {
-        return res.status(404).json({ error: 'Product not found' });
+        return res.status(404);
       }
       res.status(200).json(product);
       
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).json({ error: error.message });
+        res.status(400);
       } else {
-        res.status(400).json({ error: 'An unknown error occurred' });
+        res.status(400);
       }
     }
   };
