@@ -1,11 +1,10 @@
-import express from 'express'
-import dotenv from 'dotenv'
-dotenv.config()
-import mongoose from 'mongoose'
+const express = require('express');
+require('dotenv').config();
+const mongoose = require('mongoose');
 const ProductRotues = require('./routes/Products')
 import UserRoutes from './routes/Users'
 import ReviewsRoutes from './routes/Reviews'
-import cors from "cors"
+const cors = require('cors');
 import ordersRoute from './routes/Orders';
 
 const app = express();
@@ -33,7 +32,7 @@ mongoose.connect(dbConnectionString)
       console.log(`Server works on port ${process.env.PORT}`);
     });
   })
-  .catch((err) => {
+  .catch((err: any) => {
     console.log("Error connecting to the database: ", err);
   });
 
