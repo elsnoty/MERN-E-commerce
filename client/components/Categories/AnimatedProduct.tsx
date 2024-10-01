@@ -28,7 +28,7 @@ export const AnimatedProduct = (props: { item: ProductsProp }) => {
         )}
       </div>
       <h2 className="mt-2 text-lg font-semibold text-gray-800">
-  <p className="whitespace-normal text-ellipsis max-w-full max-h-[3rem] overflow-clip line-clamp-2">
+  <p className="whitespace-normal text-ellipsis max-w-full max-h-[3rem] overflow-clip line-clamp-1">
     {item.name}
   </p>
 </h2>

@@ -29,7 +29,6 @@ const OrderSchema: Schema = new Schema({
   total: { type: Number, required: true },
 });
 
-// Export the Order model with IOrder interface
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
 export default Order;
 export { IOrder, IProduct };

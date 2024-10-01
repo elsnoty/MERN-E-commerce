@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useSnackbar } from 'notistack';
 import { useAuth } from '../hooks/useAuth';
+import { UserError } from '@/models/error';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -13,15 +14,23 @@ const LoginForm: React.FC = () => {
 
   const handelForm = async (event: SyntheticEvent) => {
     event.preventDefault();
+    if (!username.trim()) {
+        enqueueSnackbar('Username is required', { variant: 'error' });
+        return; // Exit the function early
+    }
+    if (!password.trim()) {
+        enqueueSnackbar('Password is required', { variant: 'error' });
+        return;
+    }
     try {
       const result = await axios.post('http://localhost:3002/api/login', { username, password });
       login(result.data.token, result.data.userID);
       enqueueSnackbar('Login Success', { variant: 'success' });
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.data?.err === 'NO_USER_FOUND') {
+        if (error?.response?.data?.err === UserError.NO_USER_FOUND) {
           enqueueSnackbar('No User Found', { variant: 'error' });
-        } else if (error?.response?.data?.err === 'WRONG_CREDENTIALS') {
+        } else if (error?.response?.data?.err === UserError.WRONG_CREDENTIALS) {
           enqueueSnackbar('Wrong Credentials', { variant: 'error' });
         } else {
           enqueueSnackbar('Something went wrong', { variant: 'error' });

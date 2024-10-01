@@ -15,11 +15,11 @@ const CartItem = ({ id, name, price, quantity, image, size }: CartItemProps) => 
   const { enqueueSnackbar } = useSnackbar();
 
   const handleQuantityChange = (delta: number) => {
-    dispatch(updateQuantity({ id, quantity: quantity + delta }));
-  };
+    dispatch(updateQuantity({ id, size, quantity: quantity + delta }));
+  };  
 
   const handleDelete = () => {
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCart({id, size}));
     enqueueSnackbar('Product Deleted', { variant: 'success' });
   };
 
@@ -28,7 +28,7 @@ const CartItem = ({ id, name, price, quantity, image, size }: CartItemProps) => 
       <Link href={`/categories/${id}`} className='flex items-center'>
         <Image src={image} alt={name} className='w-20 h-20 object-cover rounded' width={80} height={80} />
         <div className='ml-6'>
-          <h4 className='font-medium text-lg'>{name}</h4>
+          <h4 className='font-medium text-lg max-w-[320px]'>{name}</h4>
           <p className='text-sm text-gray-500'>${price.toFixed(2)}</p>
           <p>Size: {size}</p>
         </div>

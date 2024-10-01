@@ -32,7 +32,7 @@ const FilterSide = () => {
   };
 
   return (
-    <div className="relative lg:static">
+    <div className="relative lg:static h-full">
       <button
         className="lg:hidden block mb-4 text-white bg-blue-600 px-4 py-2 rounded-lg shadow-md "
         onClick={() => setIsOpen(!isOpen)}

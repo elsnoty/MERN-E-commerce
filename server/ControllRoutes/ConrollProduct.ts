@@ -6,7 +6,6 @@ import { Request, Response } from 'express';
 const GetAllProducts = async (req: Request, res: Response) => {
     const page = req.query.p ? parseInt(req.query.p as string, 10) - 1 : 0; // Adjust to start from 1
     const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : undefined;
-
     try {
         let products;
         let totalCount: number;
@@ -32,8 +31,6 @@ const GetAllProducts = async (req: Request, res: Response) => {
     }
 };
 
-
-// Get a Single Product
 
 // Post a product
 const PostProduct = async (req: Request, res: Response) => {

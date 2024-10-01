@@ -10,7 +10,7 @@ const OrderItem = ({productId, name, price, quantity, image, size}: ProductOrder
                 <Link href={`/categories/${productId}`}>
                 <Image
                 src={image}
-                alt={name}
+                alt={`${name}`}
                 className="w-16 h-16 object-cover mr-4"
                 width={400}
                 height={300}

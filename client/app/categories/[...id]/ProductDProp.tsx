@@ -10,6 +10,8 @@ import ReviewAndDiscription from './ReviewAndDiscription';
 import { useDispatch } from 'react-redux';
 import { addToCart, saveCartToLocalStorage } from '@/store/CartSlice';
 import { useSnackbar } from 'notistack';
+import Review from '../../../components/Reviews/Review';
+import ReviewByProduct from '../../../components/Reviews/ReviewByProduct';
 
 const ProductDProp = (props: { item: ProductsProp }) => {
   const { hovering, onMouseEnter, onMouseLeave } = UseHover();
@@ -47,6 +49,7 @@ const ProductDProp = (props: { item: ProductsProp }) => {
   };
 
   return (
+    <div>
     <div className="flex flex-col lg:flex-row justify-center gap-5 my-10 px-5">
       {/* Image and Thumbnail section */}
       {Array.isArray(props.item.image) && props.item.image.length > 0 && (
@@ -65,7 +68,7 @@ const ProductDProp = (props: { item: ProductsProp }) => {
       )}
 
       <div className="flex flex-col items-start mt-5 lg:mt-0 lg:ml-5">
-        <h2 className="font-semibold text-2xl lg:text-3xl mb-3">{props.item.name}</h2>
+        <h2 className="font-semibold text-2xl lg:text-3xl mb-3 max-w-[320px]">{props.item.name}</h2>
         <h3 className="text-lg lg:text-xl text-gray-600 mb-2">{props.item.categories[1]}</h3>
         <div className="my-2 text-lg lg:text-xl">
           <p className="inline-flex mr-3 font-bold">Price: ${discountedPrice}</p>
@@ -91,7 +94,6 @@ const ProductDProp = (props: { item: ProductsProp }) => {
           </div>
         )}
 
-        {/* Add to Bag Button */}
         <button
           className="bg-blue-500 text-white rounded-md px-6 py-2 mt-4 hover:bg-blue-600 transition-colors duration-300"
           onClick={handleAddToCart}
@@ -99,7 +101,10 @@ const ProductDProp = (props: { item: ProductsProp }) => {
           Add to Bag
         </button>
         <ReviewAndDiscription discription={props.item.description} key={props.item._id} />
+      <ReviewByProduct params={item._id}/>
       </div>
+    </div>
+      <Review productId={item._id} />
     </div>
   );
 };

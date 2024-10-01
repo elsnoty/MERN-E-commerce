@@ -28,3 +28,17 @@ export interface ProductOrderProp {
   image: StaticImageData;
   size: string;
 }
+
+export interface ReviewProp{
+  _id: string,
+  rating: number,
+  comment: string,
+  username: string,
+}
+
+export interface Order {
+  _id: string;
+  userId: string;
+  products: ProductOrderProp[];
+  total: number;
+}
