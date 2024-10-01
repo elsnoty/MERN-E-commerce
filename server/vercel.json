@@ -6,17 +6,10 @@
             "use": "@vercel/node"
         }
     ],
-    "routes": [
-        {
-            "src": "/",
-            "status": 301,
-            "headers": {
-                "Location": "/api/products/"
-            }
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/server.ts"
-        }
-    ]
+"routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
 }
