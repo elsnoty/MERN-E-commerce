@@ -2,13 +2,20 @@
     "version": 2,
     "builds": [
         {
-            "src": "server.ts",
+            "src": "/server.ts",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
+            "src": "/",
+            "status": 301,
+            "headers": {
+                "Location": "/api/products/"
+            }
+        },
+        {
+            "src": "/(.*)",
             "dest": "/server.ts"
         }
     ]
