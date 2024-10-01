@@ -6,10 +6,12 @@ import UserRoutes from './routes/Users'
 import ReviewsRoutes from './routes/Reviews'
 const cors = require('cors');
 import ordersRoute from './routes/Orders';
+import { Request, Response } from 'express';
 
 const app = express();
 
 // middleware
+
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -38,6 +40,9 @@ mongoose.connect(dbConnectionString)
 
 // routes
 app.use('/api/products', ProductRotues)
+app.get("/", (req: Request, res: Response) => {
+  res.json("Hello");
+});
 /*
 app.use('/api/users', UserRoutes)
 app.use('/api/reviews', ReviewsRoutes)
