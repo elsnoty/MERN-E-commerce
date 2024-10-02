@@ -15,7 +15,7 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000', // local development
-  'https://mern-workout-tut.vercel.app' // deployed backend
+  'https://mern-e-commerce-fawn.vercel.app/' // deployed backend
 ];
 
 app.use(cors({
