@@ -15,6 +15,7 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000', // local development
+  'https://mern-e-commerce-yl8m.vercel.app/',
   'https://mern-e-commerce-fawn.vercel.app/' // deployed backend
 ];
 
