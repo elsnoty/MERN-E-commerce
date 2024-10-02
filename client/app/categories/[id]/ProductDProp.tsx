@@ -6,7 +6,7 @@ import UseHover from '@/hooks/UseHover';
 import { useImage } from '@/hooks/CustomImg';
 import Thumbnail from './Thumbnail';
 import style from './style.module.css';
-import ReviewAndDiscription from './ReviewAndDiscription';
+import ReviewAndDiscription from './Discription';
 import { useDispatch } from 'react-redux';
 import { addToCart, saveCartToLocalStorage } from '@/store/CartSlice';
 import { useSnackbar } from 'notistack';
@@ -49,7 +49,6 @@ const ProductDProp = (props: { item: ProductsProp }) => {
   };
 
   return (
-    <div>
     <div className="flex flex-col lg:flex-row justify-center gap-5 my-10 px-5">
       {/* Image and Thumbnail section */}
       {Array.isArray(props.item.image) && props.item.image.length > 0 && (
@@ -61,7 +60,7 @@ const ProductDProp = (props: { item: ProductsProp }) => {
           </div>
           <div className="relative z-10" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             <Lens hovering={hovering}>
-              <Image src={currentImage} alt={props.item.name} width={450} height={400} />
+              <Image src={currentImage} alt={props.item.name} width={450} height={400} style={{ width: 'auto', height: 'auto' }}/>
             </Lens>
           </div>
         </div>
@@ -102,9 +101,8 @@ const ProductDProp = (props: { item: ProductsProp }) => {
         </button>
         <ReviewAndDiscription discription={props.item.description} key={props.item._id} />
       <ReviewByProduct params={item._id}/>
-      </div>
-    </div>
       <Review productId={item._id} />
+      </div>
     </div>
   );
 };

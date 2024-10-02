@@ -12,7 +12,7 @@ const Nav = () => {
   return (
     <div className='flex gap-2 justify-between bg-white/40 shadow-xl items-center px-10 max-sm:px-4 max-md:py-4 lg:px-20'>
       <div className='flex gap-1 items-center'>
-        <Link href={'/'} className='text-black font-RubikMonoOne font-bold'>
+        <Link href={'/'} className='text-black font-RubikMonoOne font-bold sm:text-3xl'>
           ELSNOTY
         </Link>
         <Navbar className='max-md:hidden flex items-center'/>

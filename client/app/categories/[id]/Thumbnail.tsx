@@ -13,6 +13,7 @@ const Thumbnail = ({src, alt, onHover}:ThumbnailProps) => (
     width={70}
     height={70}
     onMouseEnter={onHover}
+    style={{ width: 'auto', height: 'auto' }}
     className="cursor-pointer rounded-md"
   />
 );

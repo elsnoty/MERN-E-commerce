@@ -6,7 +6,7 @@ import style from './style.module.css'
 
 const ProductDetails = ({ params }: { params: { id: string } }) => {
   const { ProductData, isLoading, error } = useFetchSingleProduct<ProductsProp>(
-    `http://localhost:3002/api/products/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/${params.id}`,
     'product',
   );
 
@@ -23,6 +23,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
   if (!ProductData) {
     return <div>No product found.</div>;
   }
+  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
     <div>

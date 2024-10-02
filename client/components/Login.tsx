@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
         return;
     }
     try {
-      const result = await axios.post('http://localhost:3002/api/login', { username, password });
+      const result = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/login`, { username, password });
       login(result.data.token, result.data.userID);
       enqueueSnackbar('Login Success', { variant: 'success' });
     } catch (error) {
@@ -51,6 +51,8 @@ const LoginForm: React.FC = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700">Username</label>
           <input
+          id='UerNameLogin'
+          name='userL'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -60,6 +62,8 @@ const LoginForm: React.FC = () => {
         <div>
           <label className="block text-sm font-medium text-gray-700">Password</label>
           <input
+          id='PassWordLogin'
+          name='passordL'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

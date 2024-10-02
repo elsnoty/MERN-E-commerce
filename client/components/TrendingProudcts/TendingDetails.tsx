@@ -8,7 +8,7 @@ import { AnimatedProduct } from '../Categories/AnimatedProduct';
 
 const TrendingDetails= () => {
     const { products, isPending, error} = useFetchProductList<ProductsProp[]>(
-        `http://localhost:3002/api/products?p=1&limit=4`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products?p=1&limit=4`,
         ["Trending"],
       );
 

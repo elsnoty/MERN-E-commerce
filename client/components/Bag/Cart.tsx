@@ -44,7 +44,7 @@ const Cart = () => {
     }));
 
     try {
-      const response = await axios.post('http://localhost:3002/api/orders', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/orders`, {
         userId: userId,
         products: formattedProducts,
         total: totalPrice,

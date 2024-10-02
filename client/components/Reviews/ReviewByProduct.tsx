@@ -7,7 +7,7 @@ import Accordion from '../ui/RT'
 
 const ReviewByProduct = ({ params }: { params:string }) => {
     const {rEview} = useFetchReview<ReviewProp[]>(
-        `http://localhost:3002/api/reviews/${params}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reviews/${params}`,
         'review'
     )
     const REvieLen = rEview?.length || 0

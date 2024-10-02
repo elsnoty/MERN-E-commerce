@@ -25,7 +25,7 @@ export default function AllProducts() {
 
   // Fetch product data
   const { products: fetchedProducts, isPending, error } = useFetchProductList<ProductsProp[]>(
-    `http://localhost:3002/api/products`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
     ["products"]
   );
 

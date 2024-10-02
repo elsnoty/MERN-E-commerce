@@ -24,7 +24,7 @@ const CartItem = ({ id, name, price, quantity, image, size }: CartItemProps) => 
   };
 
   return (
-    <div className='flex justify-between items-center border-b py-4'>
+    <div className='flex justify-between items-center max-sm:flex-col max-sm:items-start border-b py-4 gap-y-5'>
       <Link href={`/categories/${id}`} className='flex items-center'>
         <Image src={image} alt={name} className='w-20 h-20 object-cover rounded' width={80} height={80} />
         <div className='ml-6'>

@@ -16,7 +16,7 @@ const SearchComponent = () => {
   const router = useRouter();
 
   const { products: ProductData, isPending } = useFetchProductList<Search[]>(
-    "http://localhost:3002/api/products",
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
     ['searchRes']
   );
 
@@ -41,10 +41,12 @@ const SearchComponent = () => {
 
   return (
 
-  <div className="relative lg:min-w-[500px] md:w-full max-sm:w-4/5 mx-auto">
+  <div className="relative lg:min-w-[250px] xl:min-w-[450px] md:w-full max-sm:w-4/5 mx-auto">
     <div className="bg-gray-100 p-2 rounded-lg flex items-center border border-gray-300 shadow-sm">
     <FontAwesomeIcon icon={faMagnifyingGlass} className={`text-gray-600 max-PHS:hidden`} />
     <input
+    id='Searching'
+    name='search'
       type="text"
       placeholder="Search for a product..."
       onChange={(e:ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
@@ -66,7 +68,7 @@ const SearchComponent = () => {
       )}
 
       {filteredProducts.length === 0 && name && (
-        <div className="absolute top-12 bg-gray-200 z-50 p-2">
+        <div className="absolute top-12 bg-gray-200 z-50 p-2 min-w-[320px] w-full">
           <p>No products found</p>
         </div>
       )}

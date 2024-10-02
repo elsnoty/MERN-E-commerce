@@ -32,7 +32,7 @@ const Review = ({ productId }: {productId?: string}) => {
 
     try {
       await axios.post(
-        'http://localhost:3002/api/reviews',
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reviews`,
         {
           productId,
           rating,
@@ -60,34 +60,39 @@ const Review = ({ productId }: {productId?: string}) => {
   };
 
   return (
-      <form
-        onSubmit={handleForm}
-        className="w-full max-w-md bg-gray-200 py-8 px-5 rounded-lg shadow-md flex flex-col gap-y-6"
-      >
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Add a Review</h2>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Rating</label>
-          <input
-            type="number"
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            min="1"
-            max="5"
-            className="w-full p-1 border rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Comment</label>
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:border-blue-500 resize-none"
-          />
-        </div>
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
-          Submit Review
-        </button>
-      </form>
+<form
+  onSubmit={handleForm}
+  className="w-full max-w-md bg-gray-200 py-8 px-5 rounded-lg shadow-md flex flex-col gap-y-6 my-3"
+>
+  <h2 className="text-2xl font-bold text-gray-800 mb-4">Add a Review</h2>
+  <div>
+    <label htmlFor="rating" className="block text-sm font-medium text-gray-700">Rating</label>
+    <input
+      id="rating" // Add an id to the input
+      name='rate'
+      type="number"
+      value={rating}
+      onChange={(e) => setRating(Number(e.target.value))}
+      min="1"
+      max="5"
+      className="w-full p-1 border rounded focus:outline-none focus:border-blue-500"
+    />
+  </div>
+  <div>
+    <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Comment</label>
+    <textarea
+      id="comment" // Add an id to the textarea
+      name='comment'
+      value={comment}
+      onChange={(e) => setComment(e.target.value)}
+      className="w-full p-3 border rounded focus:outline-none focus:border-blue-500 resize-none"
+    />
+  </div>
+  <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
+    Submit Review
+  </button>
+</form>
+
   );
 };
 

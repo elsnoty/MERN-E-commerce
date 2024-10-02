@@ -11,11 +11,29 @@ import ordersRoute from './routes/Orders';
 const app = express();
 
 // middleware
-app.use(express.json());
+
+// CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000', // local development
+  'https://mern-workout-tut.vercel.app' // deployed backend
+];
+
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Allow credentials
 }));
+
+// Handle preflight requests
+app.options('*', cors());
 
 
 //Connect to db
@@ -29,7 +47,7 @@ if (!dbConnectionString) {
 
 mongoose.connect(dbConnectionString)
   .then(() => {
-    app.listen(process.env.PORT || 3002, () => {
+    app.listen(process.env.PORT, () => {
       console.log(`Server works on port ${process.env.PORT}`);
     });
   })

@@ -24,7 +24,7 @@ const RegisterForm = () => {
         }
 
         try {
-            await axios.post("http://localhost:3002/api/register", { username, password });
+            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/register`, { username, password });
             enqueueSnackbar('Registered Successfully, Now login', { variant: 'success' });
             router.push('/auth/login');
         } catch (error) {
@@ -51,6 +51,8 @@ const RegisterForm = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Username</label>
                     <input
+                            id='UerNameRegister'
+                            name='userR'
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -60,6 +62,8 @@ const RegisterForm = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Password</label>
                     <input
+                        id='PassWordRegister'
+                        name='passordR'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
