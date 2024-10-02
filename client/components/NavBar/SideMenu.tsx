@@ -12,7 +12,7 @@ const SideMenu = ({ className }: { className?: string }) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
-    setIsOpen(prev => !prev);
+    setIsOpen((prev) => !prev);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -37,37 +37,38 @@ const SideMenu = ({ className }: { className?: string }) => {
     <div className={className}>
       <FontAwesomeIcon
         icon={faBars}
-        className='cursor-pointer hover:bg-gray-500 rounded-full p-2 transition-colors duration-200'
+        className='cursor-pointer hover:bg-gray-200 rounded-full p-2 transition-colors duration-200'
         size='xl'
         onClick={toggleMenu}
       />
-        <AnimatePresence mode='wait'>
-      {isOpen && (
-        <motion.div
-          ref={menuRef}
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }} 
-          exit={{ x: '100%' }}
-          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-          className={`absolute right-0 top-0 bg-white p-5 text-black h-screen w-[60%] max-sm:w-full `}
-          style={{ zIndex: 100 }}
-        >
-          <div className='flex justify-between items-start pb-4'>
-            <FontAwesomeIcon
-              icon={faXmark}
-              className='cursor-pointer hover:bg-gray-500 rounded-full p-2 w-5 h-5 font-light'
-              onClick={toggleMenu}
-            />
-          </div>
-          <div className='flex flex-col items-center gap-y-2'>
-          <Navbar toggleMenu={toggleMenu}/>
-          <AuthNav className='flex flex-col items-center' toggleMenu={toggleMenu}/>
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence mode='wait'>
+        {isOpen && (
+          <motion.div
+            ref={menuRef}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            className={`absolute right-0 top-0 bg-white shadow-2xl border-l border-gray-200 p-5 text-gray-900 h-screen w-[60%] max-sm:w-full rounded-l-lg`}
+            style={{ zIndex: 100 }}
+          >
+            <div className='flex justify-between items-start pb-4'>
+              <FontAwesomeIcon
+                icon={faXmark}
+                className='cursor-pointer hover:bg-gray-200 rounded-full p-2 w-5 h-5'
+                onClick={toggleMenu}
+              />
+            </div>
+            <div className='flex flex-col items-center gap-y-4'>
+              <Navbar toggleMenu={toggleMenu} />
+              <AuthNav className='flex flex-col items-center' toggleMenu={toggleMenu} />
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
 };
 
 export default SideMenu;
+

@@ -29,7 +29,7 @@ export function Slider() {
         }}
         className="z-50 flex flex-col justify-center items-center"
       >
-        <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+        <motion.p className="font-bold text-xl md:text-6xl text-center text-white bg-clip-text py-4">
           Just For You<br /> DISC for online order 25%
         </motion.p>
       <Link

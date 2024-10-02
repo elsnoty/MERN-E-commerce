@@ -19,7 +19,6 @@ export const AnimatedProduct = (props: { item: ProductsProp }) => {
           className="rounded-lg shadow-lg object-cover h-full w-full"
           width={280}
           height={250}
-          style={{ width: 'auto', height: 'auto' }}
           priority
         />
         {item.discount > 0 && (
