@@ -23,7 +23,6 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
   if (!ProductData) {
     return <div>No product found.</div>;
   }
-  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
     <div>
