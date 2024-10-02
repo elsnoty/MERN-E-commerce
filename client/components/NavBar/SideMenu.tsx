@@ -15,12 +15,27 @@ const SideMenu = ({ className }: { className?: string }) => {
     setIsOpen((prev) => !prev);
   };
 
+  // Close the menu if a click is detected outside of the menu
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
 
+  // Disable page scroll when the menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    } else {
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'; // Cleanup on component unmount
+    };
+  }, [isOpen]);
+
+  // Attach or detach the event listener based on `isOpen` state
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -34,7 +49,7 @@ const SideMenu = ({ className }: { className?: string }) => {
   }, [isOpen]);
 
   return (
-    <div className={className}>
+    <div className={`${className} `}>
       <FontAwesomeIcon
         icon={faBars}
         className='cursor-pointer hover:bg-gray-200 rounded-full p-2 transition-colors duration-200'
@@ -49,7 +64,7 @@ const SideMenu = ({ className }: { className?: string }) => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-            className={`absolute right-0 top-0 bg-white shadow-2xl border-l border-gray-200 p-5 text-gray-900 h-screen w-[60%] max-sm:w-full rounded-l-lg`}
+            className={`absolute right-0 top-0 bg-white shadow-2xl border-l border-gray-200 p-5 text-gray-900 min-h-screen w-[60%] max-sm:w-full rounded-l-lg`}
             style={{ zIndex: 100 }}
           >
             <div className='flex justify-between items-start pb-4'>
@@ -71,4 +86,3 @@ const SideMenu = ({ className }: { className?: string }) => {
 };
 
 export default SideMenu;
-
