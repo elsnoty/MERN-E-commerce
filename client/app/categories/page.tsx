@@ -1,10 +1,12 @@
-import AllPorducts from '@/components/Categories/GetAllProducts'
-import React from 'react'
+import AllProducts from '@/components/Categories/GetAllProducts'
+import React, { Suspense } from 'react'
 
 const Categories = () => {
   return (
     <div>
-      <AllPorducts />
+      <Suspense fallback={<div>Loading...</div>}>
+        <AllProducts />
+      </Suspense>
     </div>
   )
 }
