@@ -3,39 +3,59 @@ import React, { useState, useEffect, useRef } from 'react';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './Links';
 import AuthNav from './AuthNav';
 
 const SideMenu = ({ className }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
 
-  // Close the menu if a click is detected outside of the menu
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
 
-  // Disable page scroll when the menu is open
+  // Lock scroll on body element
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      // Store the current scroll position
+      setScrollPosition(window.scrollY);
+
+      // Lock the body scroll and position
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
+      // Unlock scroll and restore the original position
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      
+      // Restore the scroll position
+      window.scrollTo(0, scrollPosition);
     }
 
     return () => {
-      document.body.style.overflow = 'auto'; // Cleanup on component unmount
+      // Cleanup and unlock scroll on component unmount
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, scrollPosition]);
 
-  // Attach or detach the event listener based on `isOpen` state
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
