@@ -60,17 +60,3 @@
     border-radius: 10px;
   }
   
-/* Global CSS for the stars */
-.starRating .dv-starRating-star {
-  font-size: 32px; /* Adjust the size as needed */
-}
-
-/* Optional: Customize the empty stars */
-.starRating .dv-starRating-empty-star {
-  font-size: 32px; /* Make sure empty stars match the size */
-}
-
-/* Target the wrapper of the stars */
-.starRating i {
-  font-size: 28px; /* Adjust the size as needed */
-}

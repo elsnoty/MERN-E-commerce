@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReviewProp } from '@/models/Products';
-import StarRatingComponent from 'react-star-rating-component';
+import StarRating from '@/hooks/CustomStar';
 
 const ReviewProps = ({ item }: { item: ReviewProp }) => {
   return (
@@ -11,12 +11,7 @@ const ReviewProps = ({ item }: { item: ReviewProp }) => {
       </div>
       <div className='flex items-center'>
         <span className='font-bold'>Rate:</span>
-        <StarRatingComponent 
-          name="rate" 
-          starCount={5} 
-          value={item.rating} 
-          editing={false}
-        />
+          <StarRating editable={false} rating={item.rating}/>
       </div>
       <p className='text-sm max-w-[260px] overflow-wrap break-words'>
         <span className='font-bold'>Comment:</span> {item.comment}

@@ -4,12 +4,11 @@ import { useCookies } from 'react-cookie';
 import axios, { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 import { useAuth } from '@/hooks/useAuth';
-import StarRatingComponent from 'react-star-rating-component';
+import StarRating from '@/hooks/CustomStar';
 
 const Review = ({ productId }: { productId?: string }) => {
   const { isAuthenticated, userId } = useAuth();
   const [rating, setRating] = useState<number>(0);
-  const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [comment, setComment] = useState<string>('');
   const { enqueueSnackbar } = useSnackbar();
   const [cookies] = useCookies(['user_token']);
@@ -49,7 +48,6 @@ const Review = ({ productId }: { productId?: string }) => {
 
       enqueueSnackbar('Review submitted successfully', { variant: 'success', autoHideDuration: 1500,  });
       setRating(0);
-      setHoverRating(null); 
       setComment('');
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -68,18 +66,8 @@ const Review = ({ productId }: { productId?: string }) => {
     >
       <h2 className='text-2xl font-bold text-gray-800 mb-4'>Add a Review</h2>
       <div className='starRating'>
-        <label className='block text-2xl font-medium text-gray-700'>Rating</label>
-        <StarRatingComponent
-          name="rating"
-          starCount={5}
-          value={hoverRating || rating}
-          onStarClick={(nextValue) => setRating(nextValue)}
-          onStarHover={(nextValue) => setHoverRating(nextValue)} 
-          onStarHoverOut={() => setHoverRating(null)}
-          starColor="#FFD700" 
-          emptyStarColor="#000" 
-        
-        />
+        <label className='block text-xl font-medium text-gray-700'>Rating</label>
+          <StarRating onRatingSelect={(stars)=> setRating(stars)} rating={rating}/>
       </div>
       <div>
         <label htmlFor='comment' className='block text-sm font-medium text-gray-700'>
