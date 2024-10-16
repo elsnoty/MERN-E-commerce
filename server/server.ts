@@ -13,7 +13,7 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000', // Local development
-  'https://mern-e-commerce-sp.vercel.app/', // Frontend deployment (no trailing slash)
+  'https://mern-e-commerce-sp.vercel.app', // Frontend deployment (no trailing slash)
   'https://mern-e-commerce-fawn.vercel.app'  // Backend deployment
 ];
 
