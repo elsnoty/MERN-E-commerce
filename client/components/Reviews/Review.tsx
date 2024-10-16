@@ -1,14 +1,15 @@
-"use client";
+'use client'
+import React, { SyntheticEvent, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import axios, { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
-import React, { SyntheticEvent, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import StarRatingComponent from 'react-star-rating-component';
 
-
-const Review = ({ productId }: {productId?: string}) => {
+const Review = ({ productId }: { productId?: string }) => {
   const { isAuthenticated, userId } = useAuth();
-  const [rating, setRating] = useState<number | ''>('');
+  const [rating, setRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [comment, setComment] = useState<string>('');
   const { enqueueSnackbar } = useSnackbar();
   const [cookies] = useCookies(['user_token']);
@@ -16,17 +17,17 @@ const Review = ({ productId }: {productId?: string}) => {
   const handleForm = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    if (rating === '' || rating < 1 || rating > 5) {
-      enqueueSnackbar('Rating must be between 1 and 5', { variant: 'error' });
+    if (rating < 1 || rating > 5) {
+      enqueueSnackbar('Please Add Rating', { variant: 'error', autoHideDuration: 1500 });
       return;
     }
     if (!comment.trim()) {
-      enqueueSnackbar('Comment is required', { variant: 'error' });
+      enqueueSnackbar('Comment is required', { variant: 'error', autoHideDuration: 1500 });
       return;
     }
 
     if (!isAuthenticated || !userId) {
-      enqueueSnackbar('You must be logged in to submit a review', { variant: 'error' });
+      enqueueSnackbar('You must be logged in to submit a review', { variant: 'error', autoHideDuration: 1500 });
       return;
     }
 
@@ -41,13 +42,14 @@ const Review = ({ productId }: {productId?: string}) => {
         },
         {
           headers: {
-            'Authorization': `Bearer ${cookies.user_token}`,
+            Authorization: `Bearer ${cookies.user_token}`,
           },
         }
       );
 
-      enqueueSnackbar('Review submitted successfully', { variant: 'success' });
-      setRating('');
+      enqueueSnackbar('Review submitted successfully', { variant: 'success', autoHideDuration: 1500,  });
+      setRating(0);
+      setHoverRating(null); 
       setComment('');
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -60,39 +62,44 @@ const Review = ({ productId }: {productId?: string}) => {
   };
 
   return (
-<form
-  onSubmit={handleForm}
-  className="w-full max-w-md bg-gray-200 py-8 px-5 rounded-lg shadow-md flex flex-col gap-y-6 my-3"
->
-  <h2 className="text-2xl font-bold text-gray-800 mb-4">Add a Review</h2>
-  <div>
-    <label htmlFor="rating" className="block text-sm font-medium text-gray-700">Rating</label>
-    <input
-      id="rating" // Add an id to the input
-      name='rate'
-      type="number"
-      value={rating}
-      onChange={(e) => setRating(Number(e.target.value))}
-      min="1"
-      max="5"
-      className="w-full p-1 border rounded focus:outline-none focus:border-blue-500"
-    />
-  </div>
-  <div>
-    <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Comment</label>
-    <textarea
-      id="comment" // Add an id to the textarea
-      name='comment'
-      value={comment}
-      onChange={(e) => setComment(e.target.value)}
-      className="w-full p-3 border rounded focus:outline-none focus:border-blue-500 resize-none"
-    />
-  </div>
-  <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
-    Submit Review
-  </button>
-</form>
-
+    <form
+      onSubmit={handleForm}
+      className='w-full max-w-md bg-gray-200 py-8 px-5 rounded-lg shadow-md flex flex-col gap-y-6 my-3'
+    >
+      <h2 className='text-2xl font-bold text-gray-800 mb-4'>Add a Review</h2>
+      <div className='starRating'>
+        <label className='block text-2xl font-medium text-gray-700'>Rating</label>
+        <StarRatingComponent
+          name="rating"
+          starCount={5}
+          value={hoverRating || rating}
+          onStarClick={(nextValue) => setRating(nextValue)}
+          onStarHover={(nextValue) => setHoverRating(nextValue)} 
+          onStarHoverOut={() => setHoverRating(null)}
+          starColor="#FFD700" 
+          emptyStarColor="#000" 
+        
+        />
+      </div>
+      <div>
+        <label htmlFor='comment' className='block text-sm font-medium text-gray-700'>
+          Comment
+        </label>
+        <textarea
+          id='comment'
+          name='comment'
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className='w-full p-3 border rounded focus:outline-none focus:border-blue-500 resize-none'
+        />
+      </div>
+      <button
+        type='submit'
+        className='w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300'
+      >
+        Submit Review
+      </button>
+    </form>
   );
 };
 

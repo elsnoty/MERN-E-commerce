@@ -15,28 +15,28 @@ const RegisterForm = () => {
     const handelForm = async (event: SyntheticEvent) => {
         event.preventDefault();
         if (!username.trim()) {
-            enqueueSnackbar('Username is required', { variant: 'error' });
+            enqueueSnackbar('Username is required', { variant: 'error', autoHideDuration: 1500, });
             return; // Exit the function early
         }
         if (!password.trim()) {
-            enqueueSnackbar('Password is required', { variant: 'error' });
+            enqueueSnackbar('Password is required', { variant: 'error', autoHideDuration: 1500, });
             return;
         }
 
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/register`, { username, password });
-            enqueueSnackbar('Registered Successfully, Now login', { variant: 'success' });
+            enqueueSnackbar('Registered Successfully, Now login', { variant: 'success', autoHideDuration: 1500, });
             router.push('/auth/login');
         } catch (error) {
             // Cast the error to AxiosError to get proper typing
             if (error instanceof AxiosError) {
                 if (error.response?.data?.err === UserError.USERNAME_ALREADY_EXISTS) {
-                    enqueueSnackbar('Username already exists', { variant: 'error' });
+                    enqueueSnackbar('Username already exists', { variant: 'error', autoHideDuration: 1500, });
                 } else {
-                    enqueueSnackbar('Something went wrong', { variant: 'error' });
+                    enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 1500, });
                 }
             } else {
-                enqueueSnackbar('Something went wrong', { variant: 'error' });
+                enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 1500, });
             }
         }
     };

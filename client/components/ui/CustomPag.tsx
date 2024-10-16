@@ -24,7 +24,7 @@ const PaginationComponent = (props: {
               handleNext(page - 1);
             }
           }}
-          className={page === 1 ? "disabled" : ""} 
+          className={page === 1 ? "disabled" : ""}
         />
 
         {page > 1 && (
@@ -48,10 +48,12 @@ const PaginationComponent = (props: {
         )}
 
         <PaginationItem>
-          <PaginationLink isActive className="cursor-pointer">{page}</PaginationLink>
+          <PaginationLink isActive className="cursor-pointer">
+            {page}
+          </PaginationLink>
         </PaginationItem>
 
-        {page < totalPages && (
+        {page < totalPages && page + 1 < totalPages && (
           <PaginationItem>
             <PaginationLink onClick={() => handleNext(page + 1)}>
               {page + 1}
@@ -65,6 +67,7 @@ const PaginationComponent = (props: {
           </PaginationItem>
         )}
 
+        {/* Only show the last page if it's not already the next page */}
         {page < totalPages && (
           <PaginationItem>
             <PaginationLink onClick={() => handleNext(totalPages)}>
@@ -79,7 +82,7 @@ const PaginationComponent = (props: {
               handleNext(page + 1);
             }
           }}
-          className={page === totalPages ? "disabled" : ""} 
+          className={page === totalPages ? "disabled" : ""}
         />
       </PaginationContent>
     </Pagination>

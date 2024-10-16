@@ -1,5 +1,4 @@
 "use client"
-// components/Accordion.tsx
 import React, { useState, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

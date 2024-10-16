@@ -15,28 +15,28 @@ const LoginForm: React.FC = () => {
   const handelForm = async (event: SyntheticEvent) => {
     event.preventDefault();
     if (!username.trim()) {
-        enqueueSnackbar('Username is required', { variant: 'error' });
+        enqueueSnackbar('Username is required', { variant: 'error',autoHideDuration: 1500, });
         return; // Exit the function early
     }
     if (!password.trim()) {
-        enqueueSnackbar('Password is required', { variant: 'error' });
+        enqueueSnackbar('Password is required', { variant: 'error', autoHideDuration: 1500, });
         return;
     }
     try {
       const result = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/login`, { username, password });
       login(result.data.token, result.data.userID);
-      enqueueSnackbar('Login Success', { variant: 'success' });
+      enqueueSnackbar('Login Success', { variant: 'success', autoHideDuration: 1500, });
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error?.response?.data?.err === UserError.NO_USER_FOUND) {
-          enqueueSnackbar('No User Found', { variant: 'error' });
+          enqueueSnackbar('No User Found', { variant: 'error', autoHideDuration: 1500, });
         } else if (error?.response?.data?.err === UserError.WRONG_CREDENTIALS) {
-          enqueueSnackbar('Wrong Credentials', { variant: 'error' });
+          enqueueSnackbar('Wrong Credentials', { variant: 'error', autoHideDuration: 1500, });
         } else {
-          enqueueSnackbar('Something went wrong', { variant: 'error' });
+          enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 1500, });
         }
       } else {
-        enqueueSnackbar('Something went wrong', { variant: 'error' });
+        enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 1500, });
       }
     }
   };
