@@ -59,7 +59,7 @@ const Cart = () => {
       } else {
         enqueueSnackbar('Order was not created. Please try again.', { variant: 'error' });
       }
-    } catch (error) {
+    } catch {
       enqueueSnackbar('Failed to place order', { variant: 'error' });
     }
   };
