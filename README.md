@@ -2,7 +2,7 @@
 A full-stack e-commerce application built using Next.js, TypeScript, Redux, Tailwind CSS, MongoDB, Node.js, and Express.js. This project features a fully functional store with user authentication, product management, and a review system.
 
 🚀 Live Demo
-Check out the live version here https://mern-e-commerce-yl8m.vercel.app/.
+Check out the live version here https://mern-e-commerce-sp.vercel.app/.
 
 ![Screenshot (359)](https://github.com/user-attachments/assets/17c62dbf-9d28-4816-9c50-bf051edf789b)
 
