@@ -70,8 +70,8 @@ const ProductDProp = (props: { item: ProductsProp }) => {
         <h2 className="font-semibold text-2xl lg:text-3xl mb-3 max-w-[320px]">{props.item.name}</h2>
         <h3 className="text-lg lg:text-xl text-gray-600 mb-2">{props.item.categories[1]}</h3>
         <div className="my-2 text-lg lg:text-xl">
-          <p className="inline-flex mr-3 font-bold">Price: ${discountedPrice}</p>
-          {props.item.discount > 0 && <span className="line-through text-red-500">${props.item.price}</span>}
+          <p className="inline-flex mr-3 font-bold">Price: ${discountedPrice.toFixed(2)}</p>
+          {props.item.discount > 0 && <span className="line-through text-red-500">${props.item.price.toFixed(2)}</span>}
         </div>
 
         {props.item.size && props.item.size.length > 0 && (

@@ -18,7 +18,7 @@ const OrderItem = ({productId, name, price, quantity, image, size}: ProductOrder
                 <div>
                 <p className="font-medium">{name}</p>
                 <p>Quantity: {quantity}</p>
-                <p>Price: ${price}</p>
+                <p>Price: ${price.toFixed(2)}</p>
                 <p>Size: {size}</p>
                 </div>
                 </Link>

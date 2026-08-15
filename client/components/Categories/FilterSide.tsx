@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from "next/navigation";
-import { toggleCategory, selectSelectedCategories } from '@/store/ProductSlice';
+import { useDispatch } from 'react-redux';
+import { useRouter, useSearchParams } from "next/navigation";
+import { toggleCategory } from '@/store/ProductSlice';
 
 const categories = ['Men', 'Kids', 'Women', 'Shoes', 'Clothes', 'Electronics'];
 
@@ -11,17 +11,22 @@ const FilterSide = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const selectedCategories = useSelector(selectSelectedCategories);
+  const searchParams = useSearchParams();
+
+  // derive selected categories from query so active state persists on refresh
+  const selectedFromQuery = searchParams.get("category")?.split(",").map(c => c.toLowerCase()) || [];
 
   const handleCategoryChange = (category: string) => {
+    // Keep redux in sync if it's being used elsewhere
     dispatch(toggleCategory(category.toLowerCase()));
 
-    // Build a new query string with updated categories
-    const updatedCategories = [...selectedCategories];
-    if (selectedCategories.includes(category.toLowerCase())) {
-      updatedCategories.splice(updatedCategories.indexOf(category.toLowerCase()), 1); // Remove if already selected
+    // Build a new query string starting from the query-derived selection
+    const updatedCategories = [...selectedFromQuery];
+    const lower = category.toLowerCase();
+    if (updatedCategories.includes(lower)) {
+      updatedCategories.splice(updatedCategories.indexOf(lower), 1); // Remove if already selected
     } else {
-      updatedCategories.push(category.toLowerCase()); // Add if not already selected
+      updatedCategories.push(lower); // Add if not already selected
     }
 
     const queryString = updatedCategories.length
@@ -55,13 +60,13 @@ const FilterSide = () => {
                 <input
                   type="checkbox"
                   value={category.toLowerCase()}
-                  checked={selectedCategories.includes(category.toLowerCase())}
+                  checked={selectedFromQuery.includes(category.toLowerCase())}
                   onChange={() => handleCategoryChange(category)}
                   className="hidden"
                 />
                 <span
                   className={`px-3 py-1 rounded-full border-2 border-gray-500 transition-all duration-200 ease-in-out hover:bg-blue-800 hover:text-white ${
-                    selectedCategories.includes(category.toLowerCase())
+                    selectedFromQuery.includes(category.toLowerCase())
                       ? "bg-blue-700 text-white"
                       : "bg-gray-100 text-black"
                   }`}

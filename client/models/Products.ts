@@ -9,6 +9,7 @@ export interface ProductsProp {
     discount:number;
     size: string[];
     description: string;
+    rate?:number
   }
 
 export interface CartItemProps {

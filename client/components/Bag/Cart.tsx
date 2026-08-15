@@ -47,7 +47,7 @@ const Cart = () => {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/orders`, {
         userId: userId,
         products: formattedProducts,
-        total: totalPrice,
+        total: totalPrice.toFixed(2),
       }, {
         headers: { Authorization: `Bearer ${cookies.user_token}` },
       });

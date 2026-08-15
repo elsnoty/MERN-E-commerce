@@ -15,7 +15,7 @@ export default function AllProducts() {
   const router = useRouter();
 
   // Get selected categories from query (it could be a comma-separated string)
-  const categoryFilter = searchParams.get("category")?.split(",") || [];
+  const categoryFilter = searchParams.get("category")?.split(",").map(c => c.toLowerCase()) || [];
   const currentPage = searchParams.get("p") ? parseInt(searchParams.get("p") as string, 10) : 1;
 
   const limit = 8;
@@ -40,10 +40,22 @@ export default function AllProducts() {
     return <div className="text-red-500">Error Fetching data...</div>;
   }
 
+  // Group-based filtering: genders (men,women,kids) vs types (shoes,clothes,electronics)
+  const genderSet = ['men', 'women', 'kids'];
+  const typeSet = ['shoes', 'clothes', 'electronics'];
+
+  const selectedGenders = categoryFilter.filter(c => genderSet.includes(c));
+  const selectedTypes = categoryFilter.filter(c => typeSet.includes(c));
+
   const filteredProducts = categoryFilter.length
-    ? products.filter(product =>
-        product.categories?.some(category => categoryFilter.includes(category.toLowerCase()))
-      )
+    ? products.filter(product => {
+        const prodCats = (product.categories || []).map(c => String(c).toLowerCase());
+        // If any gender filters, product must match at least one of them
+        if (selectedGenders.length && !selectedGenders.some(g => prodCats.includes(g))) return false;
+        // If any type filters, product must match at least one of them
+        if (selectedTypes.length && !selectedTypes.some(t => prodCats.includes(t))) return false;
+        return true;
+      })
     : products;
 
   const total = Math.ceil(filteredProducts.length / limit);
@@ -69,7 +81,14 @@ export default function AllProducts() {
         <Loader />
       </div>
     ) : (
-      <ProductGrid products={paginatedProducts} />
+      filteredProducts.length === 0 ? (
+        <div className="p-8 text-center text-gray-600">
+          <h2 className="text-2xl font-semibold mb-2">No products found</h2>
+          <p>Try changing or clearing some filters.</p>
+        </div>
+      ) : (
+        <ProductGrid products={paginatedProducts} />
+      )
     )}
     <PaginationComponent
       page={currentPage}

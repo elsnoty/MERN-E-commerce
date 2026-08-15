@@ -37,7 +37,7 @@ const Orders = () => {
           {orders?.map((order) => (
             <div key={order._id} className="border p-4 rounded-lg shadow-lg">
               <div className="text-xl font-semibold mb-2 max-w-[290px] break-words">{order._id}</div>
-              <p className="mb-2">Total: ${order.total}</p>
+              <p className="mb-2">Total: ${Number(order.total).toFixed(2)}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {order.products.map((product, index) => (
                   <OrderItem key={`${product.productId}-${index}`} {...product}/>

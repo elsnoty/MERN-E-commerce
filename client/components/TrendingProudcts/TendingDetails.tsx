@@ -8,9 +8,11 @@ import { AnimatedProduct } from '../Categories/AnimatedProduct';
 
 const TrendingDetails= () => {
     const { products, isPending, error} = useFetchProductList<ProductsProp[]>(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products?p=1&limit=4`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`,
         ["Trending"],
       );
+
+    const topProducts = products ? [...products].sort((a, b) => (b.rate || 0) - (a.rate || 0)).slice(0, 4) : [];
 
       if (error) {
         return <div>Error Fetching data...</div>;
@@ -26,7 +28,7 @@ const TrendingDetails= () => {
         </div>
       )}
         {
-          products?.map((product) => (
+          topProducts.map((product) => (
             <Link
               href={`/categories/${product._id}`}
               className="max-w-[290px] p-2 rounded-xl"
@@ -34,8 +36,8 @@ const TrendingDetails= () => {
             >
               <AnimatedProduct item={product} />
             </Link>
-          )
-        )}
+          ))
+        }
     </div>
   )
 }
